@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import { calcGridSize, type GridSize } from './gridSize';
+	import {edit} from "../Stores/Edit.svelte"
 
-	let edit: boolean = $state(true);
 	let rows: number = $state(0);
 	let cols: number = $state(0);
 	let boxSize: number = 50;
@@ -21,19 +21,19 @@
 </script>
 <svelte:window onresize={setSize} />
 
-{#snippet GridComp(edit: boolean)}
+{#snippet GridComp(gridUnderlay: boolean)}
 	<div
 		class="grid"
-		class:grid-edit={edit}
+		class:grid-edit={gridUnderlay}
 		style:grid-template-rows={`repeat(${rows}, minmax(0, ${boxSize}px))`}
 		style:grid-template-columns={`repeat(${cols}, minmax(0, ${boxSize}px))`}
 	>
-		{#if edit}
-			{#each Array(rows) as _, row}
-				{#each Array(cols) as _, col}
+		{#if gridUnderlay}
+			{#each Array(rows) as _, y}
+				{#each Array(cols) as _, x}
 					<!-- svelte-ignore a11y_no_static_element_interactions -->
 					<!-- svelte-ignore a11y_mouse_events_have_key_events -->
-					<span></span>
+					<span onmousemove={_ => edit.mouseCoords = {x, y}}></span>
 				{/each}
 			{/each}
 		{:else}
@@ -44,7 +44,7 @@
 
 <div class="wrapper">
 	{@render GridComp(false)}
-	{@render GridComp(edit)}
+	{@render GridComp(edit.edit)}
 </div>
 
 <style>
@@ -52,7 +52,7 @@
 		width: 100%;
 		height: 100%;
 		display: grid;
-		place-items: center;
+		place-content: center;
 	}
 	.grid {
 		display: grid;
