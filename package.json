@@ -1,24 +1,24 @@
 {
-  "name": "widgethub",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json"
-  },
-  "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^3.1.1",
-    "@tsconfig/svelte": "^5.0.4",
-    "prettier": "^3.3.3",
-    "prettier-plugin-svelte": "^3.2.6",
-    "svelte": "5.0.0-next.210",
-    "svelte-check": "^3.8.5",
-    "tslib": "^2.6.3",
-    "typescript": "^5.5.3",
-    "vite": "^5.4.0"
-  },
-  "packageManager": "pnpm@9.6.0+sha512.38dc6fba8dba35b39340b9700112c2fe1e12f10b17134715a4aa98ccf7bb035e76fd981cf0bb384dfa98f8d6af5481c2bef2f4266a24bfa20c34eb7147ce0b5e"
+	"name": "widgethub",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"preview": "vite preview",
+		"check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json"
+	},
+	"devDependencies": {
+		"@sveltejs/vite-plugin-svelte": "^3.1.1",
+		"@tsconfig/svelte": "^5.0.4",
+		"prettier": "^3.3.3",
+		"prettier-plugin-svelte": "^3.2.6",
+		"svelte": "5.0.0-next.210",
+		"svelte-check": "^3.8.5",
+		"tslib": "^2.6.3",
+		"typescript": "^5.5.3",
+		"vite": "^5.4.0"
+	},
+	"packageManager": "pnpm@9.6.0+sha512.38dc6fba8dba35b39340b9700112c2fe1e12f10b17134715a4aa98ccf7bb035e76fd981cf0bb384dfa98f8d6af5481c2bef2f4266a24bfa20c34eb7147ce0b5e"
 }

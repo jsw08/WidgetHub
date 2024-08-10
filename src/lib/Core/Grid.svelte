@@ -1,30 +1,32 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import { calcGridSize, type GridSize } from './gridSize';
-	import {edit} from "../Stores/Edit.svelte"
+	import { edit, type MouseCoords } from '../Stores/Edit.svelte';
+	import { profiles } from '../Stores/Profiles.svelte';
 
-	let rows: number = $state(0);
-	let cols: number = $state(0);
-	let boxSize: number = 50;
+	let {rows, cols, boxSize} = $derived(profiles.profile.gridSize)
 
-	const setSize = () => {
-		let grid: GridSize = calcGridSize(innerWidth, innerHeight, boxSize);
-		rows = grid.rows;
-		cols = grid.cols;
-	};
-	$effect(setSize);
+	// const setSize = () => {
+	// 	let grid: GridSize = calcGridSize(innerWidth, innerHeight, boxSize);
+	// 	rows = grid.rows;
+	// 	cols = grid.cols;
+	// 	console.log(rows, cols)
+	// };
+	// $effect(setSize);
 
 	type Props = {
-		children: Snippet,
+		children: Snippet;
 	};
 	let { children }: Props = $props();
 </script>
-<svelte:window onresize={setSize} />
+
+<!-- <svelte:window onresize={setSize} /> -->
 
 {#snippet GridComp(gridUnderlay: boolean)}
 	<div
 		class="grid"
 		class:grid-edit={gridUnderlay}
+		class:grid-dragging={edit.dragging}
 		style:grid-template-rows={`repeat(${rows}, minmax(0, ${boxSize}px))`}
 		style:grid-template-columns={`repeat(${cols}, minmax(0, ${boxSize}px))`}
 	>
@@ -33,7 +35,7 @@
 				{#each Array(cols) as _, x}
 					<!-- svelte-ignore a11y_no_static_element_interactions -->
 					<!-- svelte-ignore a11y_mouse_events_have_key_events -->
-					<span onmousemove={_ => edit.mouseCoords = {x, y}}></span>
+					<span data-loc="{x}.{y}" onmouseover={(_) => edit.moveWidget({ x, y })}></span>
 				{/each}
 			{/each}
 		{:else}
@@ -59,9 +61,14 @@
 		border: solid gray 1px;
 		border-radius: 5px;
 		grid-area: center;
+		width: fit-content;
+		height: fit-content;
 	}
 	.grid-edit {
 		z-index: -1;
+	}
+	.grid-dragging {
+		z-index: 2;
 	}
 	span {
 		width: 100%;

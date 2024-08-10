@@ -1,36 +1,31 @@
 <script lang="ts">
-	import type { Snippet } from "svelte";
-    import { edit } from "../Stores/Edit.svelte";
-    import { type Widget } from "../Stores/Profiles.svelte";
+	import type { Snippet } from 'svelte';
+	import { edit } from '../Stores/Edit.svelte';
+	import { type Widget } from '../Stores/Profiles.svelte';
 
-    type Props = {
-        id: string
-        widget: Widget
-        children: Snippet
-    }
-    let {id, widget = $bindable(), children}: Props = $props();
-    let {x, y, width, height} = $derived(widget.size)
+	type Props = {
+		widget: Widget;
+		id: string;
+		children: Snippet;
+	};
+	let { id, children, widget }: Props = $props();
 
-    const startDrag = () => {
-        if (!edit.edit) return
-        edit.focus = id;
-        edit.dragging = true;
-    }
+	let { x, y, width, height } = $derived(widget.size);
+	const startDrag = () => edit.startDrag(widget, id, Math.round(width / 2) -1)
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<div 
-    class="wrapper" 
-    onmousedown={startDrag}
+<div
+	class="wrapper"
+	onmousedown={startDrag}
 	style:grid-row={`${y + 1} / span ${height}`}
 	style:grid-column={`${x + 1} / span ${width}`}
 >
-    {@render children()}
+	{@render children()}
 </div>
 
 <style>
-    .wrapper {
-        user-select: none;
-    }
+	.wrapper {
+		user-select: none;
+	}
 </style>
-
