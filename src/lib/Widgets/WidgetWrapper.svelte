@@ -11,7 +11,7 @@
 	let { id, children, widget }: Props = $props();
 
 	let { x, y, width, height } = $derived(widget.size);
-	const startDrag = () => edit.startDrag(widget, id, Math.round(width / 2) -1)
+	const startDrag = () => edit.startDrag("move", widget, id, Math.round(width / 2) -1)
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
