@@ -1,12 +1,12 @@
 # WidgetHub
 ## Todo:
--[x] Create a grid that tracks your mouse movement
--[x] Create a draggable wrapper
--[x] Make the wrapper resizable
--[x] Create editable profiles and make them store to localstorage
--[x] Make a toggleable edit mode
--[] Create a setup process
--[] Create a settings page
--[] Create widgets
--[] Make it look prettier(.io)
--[] Make a better readme
+- [x] Create a grid that tracks your mouse movement
+- [x] Create a draggable wrapper
+- [x] Make the wrapper resizable
+- [x] Create editable profiles and make them store to localstorage
+- [x] Make a toggleable edit mode
+- [ ] Create a setup process
+- [ ] Create a settings page
+- [ ] Create widgets
+- [ ] Make it look prettier(.io)
+- [ ] Make a better readme
