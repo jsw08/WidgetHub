@@ -35,7 +35,7 @@ class Store {
 		this.#dragging = false;
 	}
 	moveWidget(loc: MouseCoords) {
-		if (!this.dragging || this.dragMode !== "move" || !this.focus.widget) return;
+		if (!this.dragging || this.dragMode !== 'move' || !this.focus.widget) return;
 		const offset = this.mouseCoordsOffset;
 		const widget = this.focus.widget;
 
@@ -46,22 +46,22 @@ class Store {
 		};
 	}
 	resizeWidget(loc: MouseCoords) {
-		if (!this.dragging || this.dragMode !== "resize" || !this.focus.widget) return;
+		if (!this.dragging || this.dragMode !== 'resize' || !this.focus.widget) return;
 		const size = this.focus.widget.size;
-		let newSize: {width: number, height: number} = {
+		let newSize: { width: number; height: number } = {
 			height: loc.y - size.y + 1,
 			width: loc.x - size.x + 1
-		}
+		};
 		newSize = {
 			height: newSize.height > 0 ? newSize.height : 1,
-			width: newSize.width > 0 ? newSize.width : 1,
-		}
+			width: newSize.width > 0 ? newSize.width : 1
+		};
 
 		this.focus.widget.size = {
 			...size,
 			...newSize
-		}
-		console.log(loc, this.focus.widget.size)
+		};
+		console.log(loc, this.focus.widget.size);
 	}
 }
 

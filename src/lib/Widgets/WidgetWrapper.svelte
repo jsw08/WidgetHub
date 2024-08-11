@@ -2,7 +2,7 @@
 	import type { Snippet } from 'svelte';
 	import { edit } from '../Stores/Edit.svelte';
 	import { type Widget } from '../Stores/Profiles.svelte';
-	import { stopPropagation } from "../eventModifiers"
+	import { stopPropagation } from '../eventModifiers';
 
 	type Props = {
 		widget: Widget;
@@ -17,7 +17,6 @@
 	$effect(() => {
 		console.log(edit);
 	});
-
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
@@ -29,11 +28,8 @@
 >
 	{@render children()}
 	{#if edit.edit}
-		<span
-			class="resizer"
-			onmousedown={stopPropagation(_ => startDrag('resize'))}
-		>
-			&lrcorner;	
+		<span class="resizer" onmousedown={stopPropagation((_) => startDrag('resize'))}>
+			&lrcorner;
 		</span>
 	{/if}
 </div>

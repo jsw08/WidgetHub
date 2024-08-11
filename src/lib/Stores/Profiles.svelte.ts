@@ -33,7 +33,8 @@ class Store {
 		if (!localStorage.profiles) localStorage.profiles = JSON.stringify(this.profiles);
 		else this.profiles = JSON.parse(localStorage.profiles);
 
-		if (!localStorage.activeProfile) localStorage.activeProfile = JSON.stringify(this.activeProfile);
+		if (!localStorage.activeProfile)
+			localStorage.activeProfile = JSON.stringify(this.activeProfile);
 		else this.activeProfile = JSON.parse(localStorage.activeProfile);
 	}
 

@@ -4,7 +4,7 @@
 	import { edit, type MouseCoords } from '../Stores/Edit.svelte';
 	import { profiles } from '../Stores/Profiles.svelte';
 
-	let {rows, cols, boxSize} = $derived(profiles.profile.gridSize)
+	let { rows, cols, boxSize } = $derived(profiles.profile.gridSize);
 
 	// const setSize = () => {
 	// 	let grid: GridSize = calcGridSize(innerWidth, innerHeight, boxSize);
@@ -35,11 +35,14 @@
 				{#each Array(cols) as _, x}
 					<!-- svelte-ignore a11y_no_static_element_interactions -->
 					<!-- svelte-ignore a11y_mouse_events_have_key_events -->
-					<span data-loc="{x}.{y}" onmouseover={(_) => {
-						if (edit.dragMode === undefined) return
-						if (edit.dragMode === "move") edit.moveWidget({ x, y })
-						if (edit.dragMode === "resize") edit.resizeWidget({ x, y })
-					}}></span>
+					<span
+						data-loc="{x}.{y}"
+						onmouseover={(_) => {
+							if (edit.dragMode === undefined) return;
+							if (edit.dragMode === 'move') edit.moveWidget({ x, y });
+							if (edit.dragMode === 'resize') edit.resizeWidget({ x, y });
+						}}
+					></span>
 				{/each}
 			{/each}
 		{:else}
