@@ -35,7 +35,11 @@
 				{#each Array(cols) as _, x}
 					<!-- svelte-ignore a11y_no_static_element_interactions -->
 					<!-- svelte-ignore a11y_mouse_events_have_key_events -->
-					<span data-loc="{x}.{y}" onmouseover={(_) => edit.moveWidget({ x, y })}></span>
+					<span data-loc="{x}.{y}" onmouseover={(_) => {
+						if (edit.dragMode === undefined) return
+						if (edit.dragMode === "move") edit.moveWidget({ x, y })
+						if (edit.dragMode === "resize") edit.resizeWidget({ x, y })
+					}}></span>
 				{/each}
 			{/each}
 		{:else}
@@ -68,7 +72,7 @@
 		z-index: -1;
 	}
 	.grid-dragging {
-		z-index: 2;
+		z-index: 10;
 	}
 	span {
 		width: 100%;
