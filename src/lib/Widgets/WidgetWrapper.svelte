@@ -2,6 +2,7 @@
 	import type { Snippet } from 'svelte';
 	import { edit } from '../Stores/Edit.svelte';
 	import { type Widget } from '../Stores/Profiles.svelte';
+	import { stopPropagation } from "../eventModifiers"
 
 	type Props = {
 		widget: Widget;
@@ -17,14 +18,6 @@
 		console.log(edit);
 	});
 
-	function stopPropagation<T extends (event: Event) => void>(
-		fn: T
-	): (this: any, event: Event) => void {
-		return function (this: any, event: Event): void {
-			event.stopPropagation(); // Call stopPropagation on the event
-			fn.call(this, event); // Call the original function with the correct context
-		};
-	}
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
@@ -35,12 +28,14 @@
 	style:grid-column={`${x + 1} / span ${width}`}
 >
 	{@render children()}
-	<span
-		class="resizer"
-		onmousedown={stopPropagation(_ => startDrag('resize'))}
-	>
-		&lrcorner;	
-	</span>
+	{#if edit.edit}
+		<span
+			class="resizer"
+			onmousedown={stopPropagation(_ => startDrag('resize'))}
+		>
+			&lrcorner;	
+		</span>
+	{/if}
 </div>
 
 <style>
