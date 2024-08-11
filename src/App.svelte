@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Grid from './lib/Core/Grid.svelte';
+	import Setup from './lib/Setup/Setup.svelte';
 	import { edit } from './lib/Stores/Edit.svelte';
 	import { profiles, type Widget, Widgets } from './lib/Stores/Profiles.svelte';
 	import WidgetWrapper from './lib/Widgets/WidgetWrapper.svelte';
@@ -51,7 +52,7 @@
 		{/if}
 	</div>
 {:else}
-  Setup
+	<Setup />
 {/if}
 
 <style>
