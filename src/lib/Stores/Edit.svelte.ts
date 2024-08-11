@@ -7,7 +7,7 @@ export type MouseCoords = {
 type dragMode = 'move' | 'resize';
 
 class Store {
-	edit: boolean = $state(true);
+	edit: boolean = $state(false);
 	#dragging: boolean = $state(false);
 	#dragMode: 'move' | 'resize' | undefined = $state();
 	focus: { id: string | undefined; widget: Widget | undefined } = $state({

@@ -1,7 +1,7 @@
 import type { Component } from 'svelte';
 import Test from '../Widgets/Test.svelte';
 
-type Profile = {
+export type Profile = {
 	gridSize: {
 		rows: number;
 		cols: number;
@@ -28,6 +28,8 @@ export const Widgets: { [x: string]: Component<WidgetProps> } = {
 class Store {
 	#profiles: { [x: string]: Profile } = $state({});
 	#activeProfile: string = $state('');
+	#isSetup = $state(false);
+	#profile = $derived(this.#profiles[this.#activeProfile]);
 
 	constructor() {
 		if (!localStorage.profiles) localStorage.profiles = JSON.stringify(this.profiles);
@@ -36,10 +38,18 @@ class Store {
 		if (!localStorage.activeProfile)
 			localStorage.activeProfile = JSON.stringify(this.activeProfile);
 		else this.activeProfile = JSON.parse(localStorage.activeProfile);
+
+		if (!localStorage.isSetup)
+			localStorage.isSetup = JSON.stringify(this.isSetup);
+		else this.isSetup = JSON.parse(localStorage.isSetup);
 	}
 
 	get isSetup() {
-		return Object.is(this.profiles, {});
+		return this.#isSetup;
+	}
+	set isSetup(v) {
+		this.#isSetup = v;
+		localStorage.isSetup = JSON.stringify(v);
 	}
 	get profiles() {
 		return this.#profiles;
@@ -56,9 +66,12 @@ class Store {
 		localStorage.activeProfile = JSON.stringify(v);
 	}
 	get profile() {
-		const profile: Profile = this.profiles[this.activeProfile];
-		if (!profile) throw new Error('Profile not found.');
-		return this.profiles[this.activeProfile];
+		if (!this.#profile) throw new Error(`Profile '${this.#activeProfile}' not found;\n${JSON.stringify(this.#profiles)}`)
+		return this.#profile
+	}
+	set profile(v) {
+		if (!this.#profile) throw new Error(`Profile '${this.#activeProfile}' not found;\n${JSON.stringify(this.#profiles)}`)
+		this.#profiles[this.#activeProfile] = v;
 	}
 	getWidget(id: string): Widget {
 		const widget = this.profile.widgets[id];
@@ -67,7 +80,7 @@ class Store {
 	}
 	setWidget(id: string, value: (v: Widget) => Widget) {
 		const widget = this.getWidget(id);
-		this.profile.widgets[id] = value(widget);
+		this.profile.widgets[id] = value(widget); // #FIXME: widget not being saved into localstorage.
 	}
 }
 
