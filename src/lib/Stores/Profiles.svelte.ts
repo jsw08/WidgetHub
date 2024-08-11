@@ -26,40 +26,46 @@ export const Widgets: { [x: string]: Component<WidgetProps> } = {
 };
 
 class Store {
-	profiles: { [x: string]: Profile } = $state({
-		default: {
-			gridSize: {
-				rows: 12,
-				cols: 15,
-				boxSize: 50
-			},
-			widgets: {
-				'b33f3923-6b04-4179-b205-5c23dbdd0e43': {
-					component: 'Test',
-					size: {
-						width: 5,
-						height: 5,
-						x: 1,
-						y: 1
-					}
-				}
-			}
-		}
-	});
-	activeProfile: string = $state('default');
+	#profiles: { [x: string]: Profile } = $state({});
+	#activeProfile: string = $state('');
 
+	constructor() {
+		if (!localStorage.profiles) localStorage.profiles = JSON.stringify(this.profiles);
+		else this.profiles = JSON.parse(localStorage.profiles);
+
+		if (!localStorage.activeProfile) localStorage.activeProfile = JSON.stringify(this.activeProfile);
+		else this.activeProfile = JSON.parse(localStorage.activeProfile);
+	}
+
+	get isSetup() {
+		return Object.is(this.profiles, {});
+	}
+	get profiles() {
+		return this.#profiles;
+	}
+	set profiles(v) {
+		this.#profiles = v;
+		localStorage.profiles = JSON.stringify(v);
+	}
+	get activeProfile() {
+		return this.#activeProfile;
+	}
+	set activeProfile(v) {
+		this.#activeProfile = v;
+		localStorage.activeProfile = JSON.stringify(v);
+	}
 	get profile() {
 		const profile: Profile = this.profiles[this.activeProfile];
 		if (!profile) throw new Error('Profile not found.');
 		return this.profiles[this.activeProfile];
 	}
-	getWidget(id: string): Widget | undefined {
+	getWidget(id: string): Widget {
+		const widget = this.profile.widgets[id];
+		if (!widget) throw new Error('Widget not found.');
 		return this.profile.widgets[id];
 	}
 	setWidget(id: string, value: (v: Widget) => Widget) {
 		const widget = this.getWidget(id);
-		if (!widget) throw new Error('Widget not found.');
-
 		this.profile.widgets[id] = value(widget);
 	}
 }

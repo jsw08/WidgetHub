@@ -25,7 +25,6 @@ class Store {
 	}
 	startDrag(dragMode: dragMode, widget: Widget, id: string, offset: number) {
 		if (!edit) return;
-		if (!widget) throw new Error('Widget not found.');
 		this.focus = { id, widget };
 		this.#dragging = true;
 		this.mouseCoordsOffset = offset;
