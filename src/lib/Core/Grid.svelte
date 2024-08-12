@@ -24,9 +24,10 @@
 {#snippet GridComp(gridUnderlay: boolean)}
 	<div
 		style="grid-area: center;"
-		class="grid border-2 rounded-md w-fit h-fit"
+		class="grid rounded-md w-fit h-fit"
+		class:border-2={edit.edit}
 		class:z-[-1]={gridUnderlay && !edit.dragging}
-		class:z-10={edit.dragging && gridUnderlay}
+		class:z-20={edit.dragging && gridUnderlay}
 		style:grid-template-rows={`repeat(${rows}, minmax(0, ${boxSize}px))`}
 		style:grid-template-columns={`repeat(${cols}, minmax(0, ${boxSize}px))`}
 	>

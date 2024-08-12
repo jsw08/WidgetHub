@@ -18,29 +18,18 @@
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
-	class="wrapper"
+	class="select-none border-neutral relative"
 	onmousedown={(_) => startDrag('move')}
 	style:grid-row={`${y + 1} / span ${height}`}
 	style:grid-column={`${x + 1} / span ${width}`}
+	class:border-2={edit.edit}
 >
 	{@render children()}
 	{#if edit.edit}
-		<span class="resizer" onmousedown={stopPropagation((_) => startDrag('resize'))}>
-			&lrcorner;
-		</span>
+		<span
+			class="w-5 h-5 absolute z-10 right-0 bottom-0 border-0 border-b-4 border-r-4 border-neutral-content hover:border-info"
+			class:border-info={edit.dragMode === 'resize' && edit.dragging}
+			onmousedown={stopPropagation((_) => startDrag('resize'))}
+		></span>
 	{/if}
 </div>
-
-<style>
-	.wrapper {
-		user-select: none;
-		position: relative;
-	}
-	.resizer {
-		position: absolute;
-		right: -6px;
-		bottom: -9px;
-		z-index: 9;
-		font-size: 30px;
-	}
-</style>
