@@ -3,6 +3,6 @@
 	import { profiles } from "../Stores/Profiles.svelte";
 
 </script>
-Welcome!
+<h3 class="text-lg font-bold">Welcome!</h3>
 
 {JSON.stringify(profiles.profiles)}

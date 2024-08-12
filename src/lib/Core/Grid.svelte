@@ -55,6 +55,3 @@
 	{@render GridComp(false)}
 	{@render GridComp(edit.edit)}
 </div>
-
-<style>
-</style>
