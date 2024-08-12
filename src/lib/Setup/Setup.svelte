@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { Component } from 'svelte';
 	import {setup} from "../Stores/Setup.svelte"
 </script>
 

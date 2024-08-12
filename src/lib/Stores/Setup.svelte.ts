@@ -4,12 +4,14 @@ import type { Component } from 'svelte';
 import Welcome from '../Setup/Welcome.svelte';
 import {default as ProfileSetup }from '../Setup/Profile.svelte';
 import Screen from '../Setup/Screen.svelte';
+import Finished from "../Setup/Finished.svelte";
 
 class Store {
 	pages: Component<{}>[] = $state([
 		Welcome,
 		ProfileSetup,
-		Screen
+		Screen,
+		Finished
 	]);
 	index: number = $state(0);
 	profile: Profile = $state({
