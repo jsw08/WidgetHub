@@ -1,12 +1,9 @@
 import type { Component } from 'svelte';
+import type { GridSize } from '../Core/gridSize';
 import Test from '../Widgets/Test.svelte';
 
 export type Profile = {
-	gridSize: {
-		rows: number;
-		cols: number;
-		boxSize: number;
-	};
+	gridSize: GridSize;
 	widgets: {
 		[x: string]: Widget;
 	};
@@ -26,12 +23,13 @@ export const Widgets: { [x: string]: Component<WidgetProps> } = {
 };
 
 class Store {
+	// Init vars
 	#profiles: { [x: string]: Profile } = $state({});
 	#activeProfile: string = $state('');
 	#isSetup = $state(false);
 	#profile = $derived(this.#profiles[this.#activeProfile]);
 
-	constructor() {
+	constructor() { // read from or set them in localstorage
 		if (!localStorage.profiles) localStorage.profiles = JSON.stringify(this.profiles);
 		else this.profiles = JSON.parse(localStorage.profiles);
 
@@ -43,6 +41,7 @@ class Store {
 		else this.isSetup = JSON.parse(localStorage.isSetup);
 	}
 
+	// extra setters (and thus getters) to update the value in localstorage
 	get isSetup() {
 		return this.#isSetup;
 	}
@@ -54,15 +53,15 @@ class Store {
 		return this.#profiles;
 	}
 	set profiles(v) {
-		this.#profiles = v;
 		localStorage.profiles = JSON.stringify(v);
+		this.#profiles = v;
 	}
 	get activeProfile() {
 		return this.#activeProfile;
 	}
 	set activeProfile(v) {
-		this.#activeProfile = v;
 		localStorage.activeProfile = JSON.stringify(v);
+		this.#activeProfile = v;
 	}
 	get profile() {
 		if (!this.#profile)

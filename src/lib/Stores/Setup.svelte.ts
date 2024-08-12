@@ -11,7 +11,7 @@ class Store {
 		ProfileSetup,
 		Screen
 	]);
-	index: number = $state(2);
+	index: number = $state(0);
 	profile: Profile = $state({
 		gridSize: {
 			rows: 0,
@@ -21,7 +21,12 @@ class Store {
 		widgets: {}
 	});
     profileName: string = $state("")
+	#activeComp: Component = $derived(this.pages[this.index]);
 
+	get activeComp() {
+		return this.#activeComp;
+	}
+	
 	finish() {
 		profiles.activeProfile = this.profileName;
 		profiles.profiles = { [this.profileName]: this.profile };
