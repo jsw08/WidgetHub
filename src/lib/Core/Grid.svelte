@@ -24,9 +24,10 @@
 
 {#snippet GridComp(gridUnderlay: boolean)}
 	<div
-		class="grid"
-		class:grid-edit={gridUnderlay}
-		class:grid-dragging={edit.dragging}
+		style="grid-area: center;"
+		class="grid border-2 rounded-md w-fit h-fit"
+		class:z-[-1]={gridUnderlay && !edit.dragging}
+		class:z-10={edit.dragging && gridUnderlay}
 		style:grid-template-rows={`repeat(${rows}, minmax(0, ${boxSize}px))`}
 		style:grid-template-columns={`repeat(${cols}, minmax(0, ${boxSize}px))`}
 	>
@@ -36,7 +37,7 @@
 					<!-- svelte-ignore a11y_no_static_element_interactions -->
 					<!-- svelte-ignore a11y_mouse_events_have_key_events -->
 					<span
-						data-loc="{x}.{y}"
+						class="w-full h-full border-dashed border-[1px] border-primary-content"
 						onmouseover={(_) => {
 							if (edit.dragMode === undefined) return;
 							if (edit.dragMode === 'move') edit.moveWidget({ x, y });
@@ -51,35 +52,10 @@
 	</div>
 {/snippet}
 
-<div class="wrapper">
+<div class="w-full h-full grid place-content-center">
 	{@render GridComp(false)}
 	{@render GridComp(edit.edit)}
 </div>
 
 <style>
-	.wrapper {
-		width: 100%;
-		height: 100%;
-		display: grid;
-		place-content: center;
-	}
-	.grid {
-		display: grid;
-		border: solid gray 1px;
-		border-radius: 5px;
-		grid-area: center;
-		width: fit-content;
-		height: fit-content;
-	}
-	.grid-edit {
-		z-index: -1;
-	}
-	.grid-dragging {
-		z-index: 10;
-	}
-	span {
-		width: 100%;
-		height: 100%;
-		border: 0.5px lightgray dashed;
-	}
 </style>

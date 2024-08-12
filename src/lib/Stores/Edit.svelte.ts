@@ -35,15 +35,18 @@ class Store {
 		this.#dragging = false;
 	}
 	moveWidget(loc: MouseCoords) {
-		if (!this.dragging || this.dragMode !== 'move' || !this.focus.widget) return;
+		if (!this.dragging || this.dragMode !== 'move' || !this.focus.id) return;
 		const offset = this.mouseCoordsOffset;
 		const widget = this.focus.widget;
 
-		this.focus.widget.size = {
-			...widget.size,
-			x: loc.x - offset,
-			y: loc.y
-		};
+		profiles.setWidget(this.focus.id, (v) => ({
+			...v,
+			size: {
+				...v.size,
+				x: loc.x - offset,
+				y: loc.y
+			}
+		}));
 	}
 	resizeWidget(loc: MouseCoords) {
 		if (!this.dragging || this.dragMode !== 'resize' || !this.focus.widget) return;

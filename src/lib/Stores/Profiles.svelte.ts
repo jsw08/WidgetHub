@@ -39,8 +39,7 @@ class Store {
 			localStorage.activeProfile = JSON.stringify(this.activeProfile);
 		else this.activeProfile = JSON.parse(localStorage.activeProfile);
 
-		if (!localStorage.isSetup)
-			localStorage.isSetup = JSON.stringify(this.isSetup);
+		if (!localStorage.isSetup) localStorage.isSetup = JSON.stringify(this.isSetup);
 		else this.isSetup = JSON.parse(localStorage.isSetup);
 	}
 
@@ -66,12 +65,22 @@ class Store {
 		localStorage.activeProfile = JSON.stringify(v);
 	}
 	get profile() {
-		if (!this.#profile) throw new Error(`Profile '${this.#activeProfile}' not found;\n${JSON.stringify(this.#profiles)}`)
-		return this.#profile
+		if (!this.#profile)
+			throw new Error(
+				`Profile '${this.#activeProfile}' not found;\n${JSON.stringify(this.#profiles)}`
+			);
+		return this.#profile;
 	}
 	set profile(v) {
-		if (!this.#profile) throw new Error(`Profile '${this.#activeProfile}' not found;\n${JSON.stringify(this.#profiles)}`)
-		this.#profiles[this.#activeProfile] = v;
+		if (!this.#profile)
+			throw new Error(
+				`Profile '${this.#activeProfile}' not found;\n${JSON.stringify(this.#profiles)}`
+			);
+		this.profiles[this.activeProfile] = v;
+		this.profiles = {
+			// Trigger reactivity
+			...this.profiles
+		};
 	}
 	getWidget(id: string): Widget {
 		const widget = this.profile.widgets[id];
@@ -80,7 +89,11 @@ class Store {
 	}
 	setWidget(id: string, value: (v: Widget) => Widget) {
 		const widget = this.getWidget(id);
-		this.profile.widgets[id] = value(widget); // #FIXME: widget not being saved into localstorage.
+		this.profile.widgets[id] = value(widget);
+		this.profile = {
+			// Trigger reactivity
+			...this.profile
+		};
 	}
 }
 

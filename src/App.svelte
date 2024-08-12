@@ -20,7 +20,12 @@
 		{/each}
 	</Grid>
 
-	<div class="edit" class:editEnabled={edit.edit}>
+	<div
+		class="absolute right-0 bottom-0 p-2 {edit.edit
+			? '[&>*]visible'
+			: '[&>*]:invisible'} [&>*]:hover:visible"
+		class:visible={edit.edit}
+	>
 		{#if edit.edit}
 			<!-- svelte-ignore a11y_click_events_have_key_events -->
 			<!-- svelte-ignore a11y_no_static_element_interactions -->
@@ -54,34 +59,3 @@
 {:else}
 	<Setup />
 {/if}
-
-<style>
-	@keyframes scale-up-hor-right {
-		0% {
-			transform: scaleX(0.4);
-			transform-origin: 100% 100%;
-		}
-		100% {
-			transform: scaleX(1);
-			transform-origin: 100% 100%;
-		}
-	}
-
-	.edit {
-		position: absolute;
-		right: 0;
-		bottom: 0;
-		padding: 4px;
-
-		* {
-			visibility: hidden;
-		}
-	}
-	.edit:hover * {
-		visibility: visible; /* Make visible on hover */
-	}
-
-	.edit.editEnabled * {
-		visibility: visible;
-	}
-</style>
