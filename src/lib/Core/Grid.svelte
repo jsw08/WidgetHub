@@ -37,7 +37,7 @@
 					<!-- svelte-ignore a11y_no_static_element_interactions -->
 					<!-- svelte-ignore a11y_mouse_events_have_key_events -->
 					<span
-						class="w-full h-full border-dashed border-[1px] border-primary-content"
+						class="w-full h-full border-dashed border-[1px]"
 						onmouseover={(_) => {
 							if (edit.dragMode === undefined) return;
 							if (edit.dragMode === 'move') edit.moveWidget({ x, y });

@@ -3,10 +3,9 @@
 </script>
 
 <!--backdrop -->
-<div class="w-full h-full bg-base-200">
-	<dialog class="modal" open>
-		<div class="modal-box">
-			<svelte:component this={setup.activeComp} />
-		</div>
-	</dialog>
-</div>
+<svelte:body class="bg-base-200"/>
+<dialog class="modal" open>
+	<div class="modal-box">
+		<svelte:component this={setup.activeComp} />
+	</div>
+</dialog>
