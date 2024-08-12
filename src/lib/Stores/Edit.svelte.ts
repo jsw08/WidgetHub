@@ -64,7 +64,6 @@ class Store {
 			...size,
 			...newSize
 		};
-		console.log(loc, this.focus.widget.size);
 	}
 }
 

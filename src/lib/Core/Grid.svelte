@@ -10,7 +10,6 @@
 	// 	let grid: GridSize = calcGridSize(innerWidth, innerHeight, boxSize);
 	// 	rows = grid.rows;
 	// 	cols = grid.cols;
-	// 	console.log(rows, cols)
 	// };
 	// $effect(setSize);
 

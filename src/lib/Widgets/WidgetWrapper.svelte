@@ -14,9 +14,6 @@
 	let { x, y, width, height } = $derived(widget.size);
 	const startDrag = (mode: 'move' | 'resize') =>
 		edit.startDrag(mode, widget, id, Math.round(width / 2) - 1);
-	$effect(() => {
-		console.log(edit);
-	});
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
