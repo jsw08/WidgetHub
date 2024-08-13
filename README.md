@@ -1,15 +1,41 @@
 # WidgetHub
-## Todo:
-- [x] Create a grid that tracks your mouse movement
-- [x] Create a draggable wrapper
-- [x] Make the wrapper resizable
-- [x] Create editable profiles and make them store to localstorage
-- [x] Make a toggleable edit mode
-- [x] Create a setup process
-- [ ] Make an add-widget system
-- [ ] Detect when screen res isn't compatible
-- [ ] Prevent overlap widgets
-- [ ] Create a settings page
-- [ ] Create widgets
-- [ ] Make it look prettier(.io)
-- [ ] Make a better readme
+
+[![Svelte](https://img.shields.io/badge/svelte-%23f1413d.svg?style=for-the-badge&logo=svelte&logoColor=white)](https://svelte.dev/)
+[![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![DaisyUI](https://img.shields.io/badge/daisyui-5A0EF8?style=for-the-badge&logo=daisyui&logoColor=white)](https://daisyui.com/)
+[![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+
+Major contributors:
+
+- JSW - main developer
+- Whacky - main contributor
+
+
+## Contents
+
+- [About](#about)
+- [Features](#features)
+- [Soon™](#soon)
+
+## About
+
+WidgetHub is a highly customizable grid system for your kiosk or browser startpage, allowing you to arrange and resize a variety of widgets. Choose from pre-built options or create your own custom widgets to build the perfect dashboard, whether for a digital kiosk or a personalized browser startpage.  
+
+WidgetHub's flexible layout supports a wide range of pre-built widgets, including iframes, pictures, weather apps, and time displays. WidgetHub is powerful, intuitive and very customizable, it empowers you to curate the ideal workspace, streamlining your daily productivity and keeping you on top of what matters most.
+
+## Features
+
+- Mouse tracking in the grid
+- Draggable wrapper
+- Resizable wrapper
+- Editable profiles that save to to localstorage
+- Toggleable edit mode
+
+## Soon™
+
+- Polishing the implementations of various tools
+- Create a setup process
+- Create a settings page
+- Widget creation API
+- Make it look prettier(.io)
