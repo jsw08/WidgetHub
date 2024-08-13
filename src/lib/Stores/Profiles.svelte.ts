@@ -16,6 +16,7 @@ export type Widget = {
 		x: number;
 		y: number;
 	};
+  options?: any;
 };
 export type WidgetProps = { id: string; widget: Widget };
 export const Widgets: { [x: string]: Component<WidgetProps> } = {
