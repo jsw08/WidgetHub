@@ -9,7 +9,7 @@
 			clicked = false;
 			hide = !hide;
 			localStorage.menubutton = hide;
-			console.log(localStorage.menubutton);
+			(localStorage.menubutton);
 			return;
 		}
 

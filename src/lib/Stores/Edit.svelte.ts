@@ -1,4 +1,4 @@
-import { profiles, type Widget } from './Profiles.svelte';
+import { profiles, Widgets, type Widget } from './Profiles.svelte';
 
 export type MouseCoords = {
 	x: number;
@@ -34,15 +34,16 @@ class Store {
 	moveWidget(loc: MouseCoords) {
 		if (!this.dragging || this.dragMode !== 'move' || !this.focus) return;
 		const offset = this.mouseCoordsOffset;
-		const widget = this.focus.widget;
+		const newSize = {
+			...this.focus.widget.size,
+			x: loc.x - offset,
+			y: loc.y
+		};
+		if (this.#checkPos(this.focus.id, newSize)) return;
 
 		profiles.setWidget(this.focus.id, (v) => ({
 			...v,
-			size: {
-				...v.size,
-				x: loc.x - offset,
-				y: loc.y
-			}
+			size: newSize
 		}));
 	}
 	resizeWidget(loc: MouseCoords) {
@@ -56,6 +57,13 @@ class Store {
 			height: newSize.height > 0 ? newSize.height : 1,
 			width: newSize.width > 0 ? newSize.width : 1
 		};
+		if (
+			this.#checkPos(this.focus.id, {
+				...size,
+				...newSize
+			})
+		)
+			return;
 
 		this.focus.widget.size = {
 			...size,
@@ -79,20 +87,21 @@ class Store {
 		};
 	}
 	placeWidget(x: number, y: number) {
-		console.log(this.focus);
+		this.focus;
 		if (!this.dragging || this.dragMode !== 'place' || !this.focus) return;
 		this.focus.widget.size = { ...this.focus.widget.size, x, y };
 		profiles.profile.widgets[this.focus.id] = this.focus.widget;
 		profiles.profile = {
 			...profiles.profile
 		};
-		console.log(profiles.profile);
+		profiles.profile;
 	}
-	isBlockOccupied(x: number, y: number): boolean {
-		let widgets = Object.keys(profiles.profile.widgets);
+	#getWidgetAreas(newWidgets?: typeof profiles.profile.widgets): `${number}.${number}`[][] {
+		let widgetsIds = Object.keys(newWidgets ?? profiles.profile.widgets);
+		let widgets = Object.values(newWidgets ?? profiles.profile.widgets);
 		let widgetAreas: `${number}.${number}`[][] = [];
-		for (let widgetId of widgets) {
-			const widget: Widget = profiles.getWidget(widgetId);
+		for (let [widgetI, _] of widgetsIds.entries()) {
+			const widget: Widget = widgets[widgetI];
 			const size = widget.size;
 			let areas: `${number}.${number}`[] = [];
 			const xArea = size.x + size.width;
@@ -104,7 +113,33 @@ class Store {
 			}
 			widgetAreas.push(areas);
 		}
+		return widgetAreas;
+	}
+	isBlockOccupied(x: number, y: number): boolean {
+		const widgetAreas = this.#getWidgetAreas();
 		return widgetAreas.some((widgetArea) => widgetArea.some((v) => v === `${x}.${y}`));
+	}
+	#checkPos(id: string, newSize: Widget['size']): boolean {
+		const gridSize = profiles.profile.gridSize;
+		gridSize.rows, newSize.y + newSize.height;
+		if (
+			newSize.y + newSize.height -1 >= gridSize.rows ||
+			newSize.x + newSize.width -1 >= gridSize.cols
+		)
+			return true;
+		let newWidgets: typeof profiles.profile.widgets = {
+			...profiles.profile.widgets,
+			[id]: {
+				...profiles.getWidget(id),
+				size: newSize
+			}
+		};
+		let widgetAreas = this.#getWidgetAreas(newWidgets);
+		return widgetAreas.some((subArray, index) =>
+			widgetAreas
+				.slice(index + 1)
+				.some((otherArray) => subArray.some((item) => otherArray.includes(item)))
+		);
 	}
 }
 
