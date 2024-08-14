@@ -10,7 +10,7 @@ import Grid from './lib/Core/Grid.svelte';
 	let widgetsIDS: string[] = $derived(Object.keys(profiles.profile.widgets));
 </script>
 
-<svelte:window onmouseup={(_) => edit.stopDrag()} />
+<svelte:window onmouseup={(_) => edit.dragMode !== "place" && edit.stopDrag()} />
 {#if profiles.isSetup}
 	<Grid>
 		{#each widgets as widget, i}

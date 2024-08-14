@@ -4,7 +4,7 @@
 
 <!--backdrop -->
 <svelte:body class="bg-base-200"/>
-<dialog class="modal" open>
+<dialog class="modal modal-bottom sm:modal-middle" open>
 	<div class="modal-box">
 		<svelte:component this={setup.activeComp} />
 	</div>

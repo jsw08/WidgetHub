@@ -22,6 +22,8 @@
 <!-- <svelte:window onresize={setSize} /> -->
 
 {#snippet GridComp(gridUnderlay: boolean)}
+	<!-- svelte-ignore a11y_click_events_have_key_events -->
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div
 		style="grid-area: center;"
 		class="grid rounded-md w-fit h-fit"
@@ -30,6 +32,7 @@
 		class:z-20={edit.dragging && gridUnderlay}
 		style:grid-template-rows={`repeat(${rows}, minmax(0, ${boxSize}px))`}
 		style:grid-template-columns={`repeat(${cols}, minmax(0, ${boxSize}px))`}
+		onclick={(_) => gridUnderlay && edit.stopDrag()}
 	>
 		{#if gridUnderlay}
 			{#each Array(rows) as _, y}
@@ -38,12 +41,28 @@
 					<!-- svelte-ignore a11y_mouse_events_have_key_events -->
 					<span
 						class="w-full h-full border-dashed border-[1px]"
+						class:bg-success={
+							edit.dragging &&
+							edit.dragMode === 'place' &&
+							!edit.isBlockOccupied(x, y)
+						}
+						class:bg-error={
+							edit.dragging &&
+							edit.dragMode === 'place' &&
+							edit.isBlockOccupied(x, y)
+						}
 						onmouseover={(_) => {
-							if (edit.dragMode === undefined) return;
+							if (!edit.dragging || edit.dragMode === undefined) return;
 							if (edit.dragMode === 'move') edit.moveWidget({ x, y });
 							if (edit.dragMode === 'resize') edit.resizeWidget({ x, y });
 						}}
-					></span>
+						onclick={_ => {
+							console.log("hi", edit.dragging, edit.dragMode)
+							if (!edit.dragging || edit.dragMode !== "place" ) return;
+							edit.placeWidget(x, y)
+						}}
+					>
+					</span>
 				{/each}
 			{/each}
 		{:else}
