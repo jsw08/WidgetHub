@@ -34,8 +34,7 @@ WidgetHub's flexible layout supports a wide range of pre-built widgets, includin
 
 ## Soon™
 
-- Polishing the implementations of various tools
-- Create a setup process
+- Creating an add-widget menu
 - Create a settings page
 - Widget creation API
 - Make it look prettier(.io)
