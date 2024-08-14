@@ -30,10 +30,10 @@ WidgetHub's flexible layout supports a wide range of pre-built widgets, includin
 - Resizable wrapper
 - Editable profiles that save to to localstorage
 - Toggleable edit mode
+- add-wiget menu
 
 ## Soon™
 
-- Creating an add-widget menu
 - Create a settings page
-- Widget creation API
+- Widget api and store
 - Make it look prettier(.io)
