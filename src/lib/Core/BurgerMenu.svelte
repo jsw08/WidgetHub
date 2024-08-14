@@ -50,7 +50,7 @@
 		<li>
 			<button class="btn btn-square" onclick={(_) => (pickingWidget = true)}>
 				<!-- Widget add -->
-				<span class="icon-[solar--widget-add-bold-duotone] w-[70%] h-[70%]"></span>
+				<span class="icon-[tabler--layout-grid-add] w-[70%] h-[70%]"></span>
 			</button>
 		</li>
 		<li>
