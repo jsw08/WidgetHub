@@ -14,13 +14,14 @@ class Store {
 	mouseCoords: MouseCoords = $state({ x: 0, y: 0 });
 	mouseCoordsOffset: number = $state(0);
 
+	// only getters to make sure these variables are being set by either 'startDrag' or 'startPlace'
 	get dragging() {
 		return this.#dragging;
 	}
 	get dragMode() {
 		return this.#dragMode;
 	}
-	startDrag(dragMode: dragMode, widget: Widget, id: string, offset: number) {
+	startDrag(dragMode: dragMode, widget: Widget, id: string, offset: number) { // #TODO: Merge startdrag and startPlace
 		if (!edit) return;
 		this.focus = { id, widget };
 		this.#dragging = true;
@@ -71,6 +72,16 @@ class Store {
 			...newSize
 		};
 	}
+	placeWidget(x: number, y: number) {
+		this.focus;
+		if (!this.dragging || this.dragMode !== 'place' || !this.focus) return;
+		this.focus.widget.size = { ...this.focus.widget.size, x, y };
+		profiles.profile.widgets[this.focus.id] = this.focus.widget;
+		profiles.profile = {
+			...profiles.profile
+		};
+		profiles.profile;
+	}
 
 	startPlace(widget: string) {
 		this.#dragging = true;
@@ -88,17 +99,8 @@ class Store {
 			}
 		};
 	}
-	placeWidget(x: number, y: number) {
-		this.focus;
-		if (!this.dragging || this.dragMode !== 'place' || !this.focus) return;
-		this.focus.widget.size = { ...this.focus.widget.size, x, y };
-		profiles.profile.widgets[this.focus.id] = this.focus.widget;
-		profiles.profile = {
-			...profiles.profile
-		};
-		profiles.profile;
-	}
 
+	// Functions to calculate where widgets are and if they are overlapping
 	#getWidgetAreas(newWidgets?: typeof profiles.profile.widgets): `${number}.${number}`[][] {
 		let widgetsIds = Object.keys(newWidgets ?? profiles.profile.widgets);
 		let widgets = Object.values(newWidgets ?? profiles.profile.widgets);

@@ -6,3 +6,4 @@ export function stopPropagation<T extends (event: Event) => void>(
 		fn.call(this, event); // Call the original function with the correct context
 	};
 }
+// replacement for svelte 4 eventmodifiers, rewritten in typescript by duckai
