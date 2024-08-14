@@ -16,7 +16,7 @@ export type Widget = {
 		x: number;
 		y: number;
 	};
-  options?: any;
+	options?: any;
 };
 export type WidgetProps = { id: string; widget: Widget };
 export const Widgets: { [x: string]: Component<WidgetProps> } = {
@@ -30,7 +30,8 @@ class Store {
 	#isSetup = $state(false);
 	#profile = $derived(this.#profiles[this.#activeProfile]);
 
-	constructor() { // read from or set them in localstorage
+	constructor() {
+		// read from or set them in localstorage
 		if (!localStorage.profiles) localStorage.profiles = JSON.stringify(this.profiles);
 		else this.profiles = JSON.parse(localStorage.profiles);
 

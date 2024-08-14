@@ -11,7 +11,6 @@ Major contributors:
 - JSW - main developer
 - Whacky - main contributor
 
-
 ## Contents
 
 - [About](#about)
@@ -20,7 +19,7 @@ Major contributors:
 
 ## About
 
-WidgetHub is a highly customizable grid system for your kiosk or browser startpage, allowing you to arrange and resize a variety of widgets. Choose from pre-built options or create your own custom widgets to build the perfect dashboard, whether for a digital kiosk or a personalized browser startpage.  
+WidgetHub is a highly customizable grid system for your kiosk or browser startpage, allowing you to arrange and resize a variety of widgets. Choose from pre-built options or create your own custom widgets to build the perfect dashboard, whether for a digital kiosk or a personalized browser startpage.
 
 WidgetHub's flexible layout supports a wide range of pre-built widgets, including iframes, pictures, weather apps, and time displays. WidgetHub is powerful, intuitive and very customizable, it empowers you to curate the ideal workspace, streamlining your daily productivity and keeping you on top of what matters most.
 

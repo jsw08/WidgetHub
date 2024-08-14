@@ -5,7 +5,8 @@
 
 <h3 class="text-lg font-bold">Profiles</h3>
 <p class="py-4">
-	WidgetHub supports multiple profiles, each storing its own widgets, screen size, and more. Please enter a name for your first profile below.
+	WidgetHub supports multiple profiles, each storing its own widgets, screen size, and more. Please
+	enter a name for your first profile below.
 </p>
 
 <Paginator disabled={setup.profileName.length === 0}>

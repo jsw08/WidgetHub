@@ -73,20 +73,20 @@ class Store {
 					x: 0,
 					y: 0,
 					width: 1,
-					height: 1,
-				}	
+					height: 1
+				}
 			}
-		}
+		};
 	}
 	placeWidget(x: number, y: number) {
-		console.log(this.focus)
-		if (!this.dragging || this.dragMode !== "place" || !this.focus) return
-		this.focus.widget.size = {...this.focus.widget.size, x, y}
+		console.log(this.focus);
+		if (!this.dragging || this.dragMode !== 'place' || !this.focus) return;
+		this.focus.widget.size = { ...this.focus.widget.size, x, y };
 		profiles.profile.widgets[this.focus.id] = this.focus.widget;
 		profiles.profile = {
 			...profiles.profile
-		}
-		console.log(profiles.profile)
+		};
+		console.log(profiles.profile);
 	}
 	isBlockOccupied(x: number, y: number): boolean {
 		let widgets = Object.keys(profiles.profile.widgets);
@@ -104,7 +104,7 @@ class Store {
 			}
 			widgetAreas.push(areas);
 		}
-		return widgetAreas.some(widgetArea => widgetArea.some(v => v === `${x}.${y}`))
+		return widgetAreas.some((widgetArea) => widgetArea.some((v) => v === `${x}.${y}`));
 	}
 }
 

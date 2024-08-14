@@ -41,25 +41,21 @@
 					<!-- svelte-ignore a11y_mouse_events_have_key_events -->
 					<span
 						class="w-full h-full border-dashed border-[1px]"
-						class:bg-success={
-							edit.dragging &&
+						class:bg-success={edit.dragging &&
 							edit.dragMode === 'place' &&
-							!edit.isBlockOccupied(x, y)
-						}
-						class:bg-error={
-							edit.dragging &&
+							!edit.isBlockOccupied(x, y)}
+						class:bg-error={edit.dragging &&
 							edit.dragMode === 'place' &&
-							edit.isBlockOccupied(x, y)
-						}
+							edit.isBlockOccupied(x, y)}
 						onmouseover={(_) => {
 							if (!edit.dragging || edit.dragMode === undefined) return;
 							if (edit.dragMode === 'move') edit.moveWidget({ x, y });
 							if (edit.dragMode === 'resize') edit.resizeWidget({ x, y });
 						}}
-						onclick={_ => {
-							console.log("hi", edit.dragging, edit.dragMode)
-							if (!edit.dragging || edit.dragMode !== "place" ) return;
-							edit.placeWidget(x, y)
+						onclick={(_) => {
+							console.log('hi', edit.dragging, edit.dragMode);
+							if (!edit.dragging || edit.dragMode !== 'place') return;
+							edit.placeWidget(x, y);
 						}}
 					>
 					</span>

@@ -58,7 +58,7 @@
 			</button>
 		</li>
 		<li>
-			<button class="btn btn-square" onclick={_ => pickingWidget = true}>
+			<button class="btn btn-square" onclick={(_) => (pickingWidget = true)}>
 				<!-- Widget add -->
 				<svg xmlns="http://www.w3.org/2000/svg" width="70%" height="70%" viewBox="0 0 24 24"
 					><path
@@ -101,5 +101,11 @@
 </div>
 
 {#if pickingWidget}
-	<WidgetChooser bind:open={pickingWidget} pick={(widget: string) => {edit.edit = true; edit.startPlace(widget)}}/>
+	<WidgetChooser
+		bind:open={pickingWidget}
+		pick={(widget: string) => {
+			edit.edit = true;
+			edit.startPlace(widget);
+		}}
+	/>
 {/if}
