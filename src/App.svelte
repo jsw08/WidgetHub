@@ -20,7 +20,7 @@ import Grid from './lib/Core/Grid.svelte';
 			</WidgetWrapper>
 		{/each}
 	</Grid>
+	<BurgerMenu/>
 {:else}
 	<Setup />
 {/if}
-<BurgerMenu/>
