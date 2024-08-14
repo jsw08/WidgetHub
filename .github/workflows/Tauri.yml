@@ -14,8 +14,11 @@ jobs:
   setup:
     name: Rust And Cargo Setup
     runs-on: ubuntu-latest
-    steps:
-      - uses: moonrepo/setup-rust@v1
+    - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Rust
+        uses: moonrepo/setup-rust@v1
 
   build:
     name: Build Tauri App
