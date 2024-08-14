@@ -15,8 +15,17 @@ jobs:
     name: Build Tauri App
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: moonrepo/setup-rust@v1
+      - name: Actions 
+        uses: actions/checkout@v4
+
+      - name: Setup Rust
+        uses: moonrepo/setup-rust@v1
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
       - name: Install Dependencies
         run: pnpm install
 
