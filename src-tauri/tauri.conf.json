@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "WidgetHub",
-    "version": "0.1.0"
+    "version": "0.0.1"
   },
   "tauri": {
     "allowlist": {
@@ -29,7 +29,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "io.github.jsw08.widgethub",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -39,7 +39,7 @@
         "signingIdentity": null
       },
       "resources": [],
-      "shortDescription": "",
+      "shortDescription": "Dashboard builder.",
       "targets": "all",
       "windows": {
         "certificateThumbprint": null,
