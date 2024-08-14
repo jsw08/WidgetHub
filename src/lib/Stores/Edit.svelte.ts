@@ -31,6 +31,7 @@ class Store {
 		this.focus = undefined;
 		this.#dragging = false;
 	}
+
 	moveWidget(loc: MouseCoords) {
 		if (!this.dragging || this.dragMode !== 'move' || !this.focus) return;
 		const offset = this.mouseCoordsOffset;
@@ -70,6 +71,7 @@ class Store {
 			...newSize
 		};
 	}
+
 	startPlace(widget: string) {
 		this.#dragging = true;
 		this.#dragMode = 'place';
@@ -96,6 +98,7 @@ class Store {
 		};
 		profiles.profile;
 	}
+
 	#getWidgetAreas(newWidgets?: typeof profiles.profile.widgets): `${number}.${number}`[][] {
 		let widgetsIds = Object.keys(newWidgets ?? profiles.profile.widgets);
 		let widgets = Object.values(newWidgets ?? profiles.profile.widgets);
@@ -123,8 +126,8 @@ class Store {
 		const gridSize = profiles.profile.gridSize;
 		gridSize.rows, newSize.y + newSize.height;
 		if (
-			newSize.y + newSize.height -1 >= gridSize.rows ||
-			newSize.x + newSize.width -1 >= gridSize.cols
+			newSize.y + newSize.height - 1 >= gridSize.rows ||
+			newSize.x + newSize.width - 1 >= gridSize.cols
 		)
 			return true;
 		let newWidgets: typeof profiles.profile.widgets = {

@@ -53,7 +53,6 @@
 							if (edit.dragMode === 'resize') edit.resizeWidget({ x, y });
 						}}
 						onclick={(_) => {
-							('hi', edit.dragging, edit.dragMode);
 							if (!edit.dragging || edit.dragMode !== 'place') return;
 							edit.placeWidget(x, y);
 						}}
