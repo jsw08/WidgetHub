@@ -4,7 +4,7 @@ import Grid from './lib/Core/Grid.svelte';
 	import Setup from './lib/Setup/Setup.svelte';
 	import { edit } from './lib/Stores/Edit.svelte';
 	import { profiles, type Widget, Widgets } from './lib/Stores/Profiles.svelte';
-	import WidgetWrapper from './lib/Widgets/WidgetWrapper.svelte';
+	import WidgetWrapper from './lib/Core/WidgetWrapper.svelte';
 
 	let widgets: Widget[] = $derived(Object.values(profiles.profile.widgets));
 	let widgetsIDS: string[] = $derived(Object.keys(profiles.profile.widgets));
