@@ -71,7 +71,7 @@
 		bind:open={pickingWidget}
 		pick={(widget: string) => {
 			edit.edit = true;
-			edit.startPlace(widget);
+			edit.startDrag("place", widget);
 		}}
 	/>
 {/if}

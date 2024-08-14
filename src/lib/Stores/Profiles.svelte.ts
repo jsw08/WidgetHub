@@ -19,8 +19,16 @@ export type Widget = {
 	options?: any;
 };
 export type WidgetProps = { id: string; widget: Widget };
-export const Widgets: { [x: string]: Component<WidgetProps> } = {
-	Test: Test
+export const Widgets: {
+	[x: string]: { component: Component<WidgetProps>; size: { minWidth: number; minHeight: number } };
+} = {
+	Test: {
+		component: Test,
+		size: {
+			minWidth: 2,
+			minHeight: 2
+		}
+	}
 };
 
 class Store {

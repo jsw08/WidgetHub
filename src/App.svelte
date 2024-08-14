@@ -16,7 +16,7 @@
 		{#each widgets as widget, i}
 			{@const id = widgetsIDS[i]}
 			<WidgetWrapper {widget} {id}>
-				<svelte:component this={Widgets[widget.component]} {widget} {id} />
+				<svelte:component this={Widgets[widget.component].component} {widget} {id} />
 			</WidgetWrapper>
 		{/each}
 	</Grid>
