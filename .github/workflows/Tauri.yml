@@ -11,22 +11,12 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  setup:
-    name: Rust And Cargo Setup
-    runs-on: ubuntu-latest
-    - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Rust
-        uses: moonrepo/setup-rust@v1
-
   build:
     name: Build Tauri App
     runs-on: ubuntu-latest
-    needs: setup 
     steps:
       - uses: actions/checkout@v4
-
+      - uses: moonrepo/setup-rust@v1
       - name: Install Dependencies
         run: pnpm install
 
