@@ -1,10 +1,10 @@
 [package]
-name = "app"
+name = "WidgetHub"
 version = "0.1.0"
-description = "A Tauri App"
-authors = ["you"]
-license = ""
-repository = ""
+description = "Desktop version of WidgetHub"
+authors = ["jsw08"]
+license = "Gnu v3"
+repository = "jsw08/widgethub"
 default-run = "app"
 edition = "2021"
 rust-version = "1.60"
