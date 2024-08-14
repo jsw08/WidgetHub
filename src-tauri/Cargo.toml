@@ -5,7 +5,7 @@ description = "Desktop version of WidgetHub"
 authors = ["jsw08"]
 license = "Gnu v3"
 repository = "jsw08/widgethub"
-default-run = "app"
+default-run = "WidgetHub"
 edition = "2021"
 rust-version = "1.60"
 
