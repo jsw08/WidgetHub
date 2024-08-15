@@ -15,6 +15,13 @@
 		window.onresize = setSize;
 	};
 	$effect(setSize);
+
+	let moveTimeout: number;
+	const oninput = () => {
+		clearTimeout(moveTimeout)
+		moveTimeout = setInterval(() => boxVisibility = false, 500)
+		boxVisibility = true;
+	}
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
@@ -51,8 +58,7 @@
 		max="200"
 		class="range"
 		bind:value={boxSize}
-		onmousedown={(_) => (boxVisibility = true)}
-		onmouseup={(_) => (boxVisibility = false)}
+		{ oninput }
 	/>
 	<div class="flex flex-col justify-center items-left text-xs font-mono flex-none">
 		<span>box : {gridSize.boxSize}</span>
