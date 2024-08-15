@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { edit } from '../Stores/Edit.svelte';
 	import { type Widget } from '../Stores/Profiles.svelte';
+	import { edit } from '../Stores/Edit.svelte';
 
 	type Props = {
 		widget: Widget;
@@ -18,10 +18,10 @@
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
 	class="select-none border-neutral relative"
-	onmousedown={(_) => startDrag('move')}
+	class:border-2={edit.edit}
 	style:grid-row={`${y + 1} / span ${height}`}
 	style:grid-column={`${x + 1} / span ${width}`}
-	class:border-2={edit.edit}
+	onmousedown={(_) => startDrag('move')}
 >
 	{@render children()}
 	{#if edit.edit}
