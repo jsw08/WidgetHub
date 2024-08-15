@@ -28,8 +28,8 @@
 			</button>
 		{/if}
 		{#if finalPage}
-			<button class="btn btn-square btn-primary join-item" type="submit">
-				<span class="icon-[pajamas--review-checkmark] w-[60%] h-[60%]"></span>
+			<button class="btn btn-square btn-success join-item" type="submit">
+				<span class="icon-[pajamas--review-checkmark] w-[55%] h-[55%]"></span>
 			</button>
 		{:else}
 			<button

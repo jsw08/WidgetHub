@@ -43,7 +43,7 @@
 <div role="alert" class="alert alert-warning">
 	<span class="icon-[pajamas--warning] text-black w-5 h-5"></span>
 	<span
-		>Ensure your browser window is the correct size (and in fullscreen) before clicking 'Next'!</span
+		>Ensure your browser window is the correct size (and in fullscreen) before clicking '<span class="icon-[mdi--navigate-next] align-middle w-5 h-5 -mx-1"></span>'!</span
 	>
 </div>
 
