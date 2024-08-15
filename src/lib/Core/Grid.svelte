@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { calcGridSize, type GridSize } from './gridSize';
-	import { edit, type MouseCoords } from '../Stores/Edit.svelte';
+	import { edit } from '../Stores/Edit.svelte';
 	import { profiles } from '../Stores/Profiles.svelte';
 
 	let { rows, cols, boxSize } = $derived(profiles.profile.gridSize);
@@ -36,14 +35,13 @@
 						class:bg-error={edit.dragging && edit.dragMode === 'place' && !edit.isPlaceable(x, y)}
 						onmouseover={(_) => {
 							if (!edit.dragging || edit.dragMode === undefined) return;
-							edit.dragMode === 'move' && edit.moveWidget({ x, y });
-							edit.dragMode === 'resize' && edit.resizeWidget({ x, y });
+							if (edit.dragMode === 'move') edit.moveWidget({ x, y });
+							if (edit.dragMode === 'resize') edit.resizeWidget({ x, y });
 						}}
-						onclick={(_) =>
-							edit.dragging &&
-							edit.dragMode === 'place' &&
-							edit.isPlaceable(x, y) &&
-							edit.placeWidget(x, y)}
+						onclick={(_) => {
+							if (edit.dragging && edit.dragMode === 'place' && edit.isPlaceable(x, y))
+								edit.placeWidget(x, y);
+						}}
 					>
 					</span>
 				{/each}

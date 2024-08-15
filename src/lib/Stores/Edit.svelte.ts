@@ -5,6 +5,7 @@ export type MouseCoords = {
 	y: number;
 };
 type dragMode = 'move' | 'resize' | 'place';
+type WidgetAreas = `${number}.${number}`[] 
 
 const hasDuplicates = (arr: Array<any>) => arr.length !== new Set(arr).size;
 class Store {
@@ -14,11 +15,10 @@ class Store {
 	focus: undefined | { id: string; widget: Widget } = $state();
 	mouseCoords: MouseCoords = $state({ x: 0, y: 0 });
 	mouseCoordsOffset: number = $state(0);
-	#widgetAreas: `${number}.${number}`[] = []; // contains all of the blocks that widgets are covering
+	#widgetAreas: WidgetAreas = []; // contains all of the blocks that widgets are covering
 
 	constructor() {
-		this.#widgetAreas = this.#getWidgetAreas();
-		console.log(this.#widgetAreas);
+		this.#updateWidgetAreas()	
 	}
 
 	// only getters to make sure these variables are being set by either 'startDrag' or 'startPlace'
@@ -56,11 +56,18 @@ class Store {
 		this.#dragMode = dragMode;
 	}
 	stopDrag() {
-		this.focus = undefined;
+		this.focus;
+		this.#dragMode;
 		this.#dragging = false;
-		this.#dragMode = undefined;
 	}
 
+	deleteWidget(id: string) {
+		delete profiles.profile.widgets[id]
+		profiles.profile = {
+			...profiles.profile
+		}
+		this.#updateWidgetAreas()
+	}
 	moveWidget(loc: MouseCoords) {
 		if (!this.dragging || this.dragMode !== 'move' || !this.focus) return;
 
@@ -114,18 +121,31 @@ class Store {
 			...profiles.profile
 		};
 
-		this.#widgetAreas = this.#getWidgetAreas(); // only update widgetAreas if item is going to be placed or moved (see checkPos)
+		this.#updateWidgetAreas(); // only update widgetAreas if item is going to be placed or moved (see checkPos)
+		this.stopDrag()
 	}
-
 	// Functions to calculate where widgets are and if they are overlapping
-	#getWidgetAreas(newWidgets?: typeof profiles.profile.widgets): `${number}.${number}`[] {
+	isPlaceable(x: number, y: number): boolean {
+		if (!this.dragging || this.dragMode !== 'place' || !this.focus) throw new Error(`Not placing.`);
+		const gridSize = profiles.profile.gridSize;
+		const size = this.focus.widget.size;
+
+		if (y + size.height > gridSize.rows || x + size.width > gridSize.cols) return false;
+
+		let totalArea: WidgetAreas = [];
+		for (let [w, _] of new Array(size.width).entries())
+			for (let [h, _] of new Array(size.height).entries()) totalArea.push(`${x + w}.${y + h}`);
+
+		return !hasDuplicates(totalArea.concat(this.#widgetAreas));
+	}
+	#getWidgetAreas(newWidgets?: typeof profiles.profile.widgets): WidgetAreas {
 		const widgets = Object.values(newWidgets ?? profiles.profile.widgets);
-		const occupiedAreas: `${number}.${number}`[] = [];
+		const occupiedAreas: WidgetAreas = [];
 
 		for (const widget of widgets) {
 			const size = widget.size;
-			for (let [x, _] of new Array(size.width).entries())
-				for (let [y, _] of new Array(size.height).entries()) occupiedAreas.push(`${x}.${y}`);
+			for (let [w, _] of new Array(size.width).entries())
+				for (let [h, _] of new Array(size.height).entries()) occupiedAreas.push(`${w + size.x}.${h + size.y}`);
 		}
 
 		return occupiedAreas;
@@ -145,22 +165,12 @@ class Store {
 		let widgetAreas = this.#getWidgetAreas(newWidgets);
 
 		const isMovable = !hasDuplicates(widgetAreas);
-		if (!isMovable) this.#widgetAreas = widgetAreas;
+		if (!isMovable) this.#updateWidgetAreas(widgetAreas)
 		// only update widgetAreas if item is going to be moved or if item is going to be placed (check placeItem)
 		return isMovable;
 	}
-	isPlaceable(x: number, y: number): boolean {
-		if (!this.dragging || this.dragMode !== 'place' || !this.focus) throw new Error(`Not placing.`);
-		const gridSize = profiles.profile.gridSize;
-		const size = this.focus.widget.size;
-
-		if (y + size.height > gridSize.rows || x + size.width > gridSize.cols) return false;
-
-		let totalArea: `${number}.${number}`[] = [];
-		for (let [w, _] of new Array(size.width).entries())
-			for (let [h, _] of new Array(size.height).entries()) totalArea.push(`${x + w}.${y + h}`);
-
-		return !hasDuplicates(totalArea.concat(this.#widgetAreas));
+	#updateWidgetAreas(override?: WidgetAreas) {
+		this.#widgetAreas = override ?? this.#getWidgetAreas();
 	}
 }
 

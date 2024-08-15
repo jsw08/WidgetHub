@@ -33,12 +33,7 @@
 		></span>
 		<span
 			class="w-5 h-5 absolute z-10 right-0 top-0 icon-[material-symbols--close] hover:text-error"
-			onmousedown={stopPropagation((_) => {
-				delete profiles.profile.widgets[id]
-				profiles.profile = {
-					...profiles.profile
-				}
-			})}
+			onmousedown={stopPropagation(_ => edit.deleteWidget(id))}
 		></span>
 	{/if}
 </div>
