@@ -25,10 +25,13 @@
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div
 		style="grid-area: center;"
-		class="grid rounded-md w-fit h-fit {gridUnderlay ? (edit.dragging ? 'z-20' : 'z-[-1') : ''}"
+		class="grid rounded-md w-fit h-fit"
+		class:z-20={edit.dragging && gridUnderlay}
+		class:z-[-1]={!edit.dragging && gridUnderlay}
 		class:border-2={edit.edit}
 		style:grid-template-rows={`repeat(${rows}, minmax(0, ${boxSize}px))`}
 		style:grid-template-columns={`repeat(${cols}, minmax(0, ${boxSize}px))`}
+		
 	>
 		{#if gridUnderlay}
 			{#each Array(rows) as _, y}

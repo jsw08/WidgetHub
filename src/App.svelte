@@ -1,10 +1,12 @@
 <script lang="ts">
 	import BurgerMenu from './lib/Core/BurgerMenu.svelte';
 	import Grid from './lib/Core/Grid.svelte';
+	import Options from './lib/Core/Options.svelte';
 	import Setup from './lib/Setup/Setup.svelte';
-	import { edit } from './lib/Stores/Edit.svelte';
-	import { profiles, type Widget, Widgets } from './lib/Stores/Profiles.svelte';
 	import WidgetWrapper from './lib/Core/WidgetWrapper.svelte';
+	import { edit } from './lib/Stores/Edit.svelte';
+	import { options } from './lib/Stores/Options.svelte';
+	import { profiles, type Widget, Widgets } from './lib/Stores/Profiles.svelte';
 
 	let widgets: Widget[] = $derived(Object.values(profiles.profile.widgets));
 	let widgetsIDS: string[] = $derived(Object.keys(profiles.profile.widgets));
@@ -20,8 +22,11 @@
 			</WidgetWrapper>
 		{/each}
 	</Grid>
-	{#if !edit.dragging}
+	{#if !edit.dragging && !options.open}
 		<BurgerMenu />
+	{/if}
+	{#if options.open}
+		<Options/>
 	{/if}
 {:else}
 	<Setup />
