@@ -40,7 +40,7 @@
 	<ul
 		tabindex="0"
 		class="dropdown-content menu bg-base-100 rounded-box z-[1] shadow [&>li]:my-1"
-		onmouseleave={(_) => hide && !edit.edit && (document.activeElement as HTMLElement).blur()}
+		onmouseleave={(_) => (hide && !edit.edit) ? (document.activeElement as HTMLElement).blur() : void 0}
 	>
 		<li>
 			<button class="btn btn-square">
@@ -57,11 +57,7 @@
 		<li>
 			<!-- Edit button -->
 			<button class="btn btn-square" onclick={(_) => (edit.edit = !edit.edit)}>
-				{#if edit.edit}
-					<span class="icon-[material-symbols--edit-off-rounded] w-[70%] h-[70%]"></span>
-				{:else}
-					<span class="icon-[material-symbols--edit-rounded] w-[70%] h-[70%]"></span>
-				{/if}
+				<span class="icon-[material-symbols--edit{edit.edit ? "-off" : ""}-rounded] w-[70%] h-[70%]"></span>
 			</button>
 		</li>
 	</ul>
