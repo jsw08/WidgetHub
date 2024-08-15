@@ -33,9 +33,9 @@ export const Widgets: {
 
 class Store {
 	// Init vars
-	#profiles: { [x: string]: Profile } = $state({});
 	#activeProfile: string = $state('');
 	#isSetup = $state(false);
+	#profiles: { [x: string]: Profile } = $state({});
 	#profile = $derived(this.#profiles[this.#activeProfile]);
 
 	constructor() {
@@ -87,7 +87,7 @@ class Store {
 			);
 		this.profiles[this.activeProfile] = v;
 		this.profiles = {
-			// Trigger reactivity
+			// Trigger setter
 			...this.profiles
 		};
 	}
@@ -100,7 +100,7 @@ class Store {
 		const widget = this.getWidget(id);
 		this.profile.widgets[id] = value(widget);
 		this.profile = {
-			// Trigger reactivity
+			// Trigger setter
 			...this.profile
 		};
 	}
