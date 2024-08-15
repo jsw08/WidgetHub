@@ -20,10 +20,7 @@
 			</button>
 		{/if}
 		{#if finalPage}
-			<button
-				class="btn btn-square btn-primary join-item"
-				onclick={setup.finish}
-			>
+			<button class="btn btn-square btn-primary join-item" onclick={setup.finish}>
 				<span class="icon-[pajamas--review-checkmark] w-[60%] h-[60%]"></span>
 			</button>
 		{:else}

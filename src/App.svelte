@@ -10,11 +10,7 @@
 	let widgetsIDS: string[] = $derived(Object.keys(profiles.profile.widgets));
 </script>
 
-<svelte:window
-	onmouseup={(_) => {
-		if (edit.dragMode !== 'place') edit.stopDrag();
-	}}
-/>
+<svelte:window onmouseup={(_) => (edit.dragMode !== 'place' ? edit.stopDrag() : void 0)} />
 {#if profiles.isSetup}
 	<Grid>
 		{#each widgets as widget, i}
