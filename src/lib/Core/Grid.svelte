@@ -10,7 +10,18 @@
 		children: Snippet;
 	};
 	let { children }: Props = $props();
-	$effect(() => console.info(edit.dragging, edit.dragMode))
+	$effect(() => console.info(edit.dragging, edit.dragMode));
+
+	const mouseOverHandler = (x: number, y: number) => {
+		if (!edit.dragging || edit.dragMode === undefined) return;
+		if (edit.dragMode === 'move') edit.moveWidget({ x, y });
+		if (edit.dragMode === 'resize') edit.resizeWidget({ x, y });
+	};
+	const clickHandler = (x: number, y: number) =>
+		stopPropagation((_) => {
+			if (edit.dragging && edit.dragMode === 'place' && edit.isPlaceable(x, y))
+				edit.placeWidget(x, y);
+		});
 </script>
 
 {#snippet GridComp(gridUnderlay: boolean)}
@@ -35,15 +46,10 @@
 						class="w-full h-full border-dashed border-[1px] opacity-20"
 						class:bg-success={edit.dragging && edit.dragMode === 'place' && edit.isPlaceable(x, y)}
 						class:bg-error={edit.dragging && edit.dragMode === 'place' && !edit.isPlaceable(x, y)}
-						onmouseover={(_) => {
-							if (!edit.dragging || edit.dragMode === undefined) return;
-							if (edit.dragMode === 'move') edit.moveWidget({ x, y });
-							if (edit.dragMode === 'resize') edit.resizeWidget({ x, y });
-						}}
-						onclick={stopPropagation((_) => {
-							if (edit.dragging && edit.dragMode === 'place' && edit.isPlaceable(x, y))
-								edit.placeWidget(x, y);
-						})}
+						onmouseover={(_) => mouseOverHandler(x, y)}
+						ontouchmove={_ => mouseOverHandler(x,y)}
+						onclick={(_) => clickHandler(x, y)}
+						ontouchstart={_ => clickHandler(x,y)}
 					>
 					</span>
 				{/each}
