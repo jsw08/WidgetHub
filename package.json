@@ -8,7 +8,13 @@
 		"build": "vite build",
 		"preview": "vite preview",
 		"tauri": "tauri",
-		"check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json"
+		"check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json",
+		"bdev": "bunx vite",
+		"bbuild": "bunx vite build",
+		"bpreview": "bunx vite preview",
+		"btauri": "bunx tauri",
+		"bcheck": "bunx svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json"
+
 	},
 	"devDependencies": {
 		"@iconify/json": "^2.2.237",
