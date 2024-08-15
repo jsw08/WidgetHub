@@ -54,7 +54,7 @@
 		onmousedown={(_) => (boxVisibility = true)}
 		onmouseup={(_) => (boxVisibility = false)}
 	/>
-	<div class="flex flex-col justify-center items-left text-xs font-mono w-32">
+	<div class="flex flex-col justify-center items-left text-xs font-mono flex-none">
 		<span>box : {gridSize.boxSize}</span>
 		<span>rows: {gridSize.rows}</span>
 		<span>cols: {gridSize.cols}</span>
@@ -62,7 +62,6 @@
 	<!-- <span class="w-12 flex justify-center">{setup.profile.gridSize.boxSize}</span> -->
 </Paginator>
 
-<svelte:window />
 {#if boxVisibility}
 	<div
 		class="absolute border-2 rounded-sm grid place-content-center select-none z-10 -translate-x-2/4 -translate-y-2/4 top-2/4 left-2/4 bg-base-200 opacity-80"
