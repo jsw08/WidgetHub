@@ -1,4 +1,4 @@
 class Store {
-    open = $state(false)
+    open = $state(true)
 }
 export const options = new Store();
