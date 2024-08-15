@@ -2,6 +2,7 @@
 	import BurgerMenu from './lib/Core/BurgerMenu.svelte';
 	import Grid from './lib/Core/Grid.svelte';
 	import Options from './lib/Core/Options.svelte';
+	import ScreensizeWarning from './lib/Core/ScreensizeWarning.svelte';
 	import Setup from './lib/Setup/Setup.svelte';
 	import WidgetWrapper from './lib/Core/WidgetWrapper.svelte';
 	import { edit } from './lib/Stores/Edit.svelte';
@@ -28,6 +29,7 @@
 	{#if options.open}
 		<Options/>
 	{/if}
+	<ScreensizeWarning/>
 {:else}
 	<Setup />
 {/if}

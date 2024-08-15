@@ -8,3 +8,5 @@ export function calcGridSize(width: number, height: number, boxSize: number): Gr
 		boxSize
 	};
 }
+export const calcBoxSize = (width: number, height: number, rows: number, cols: number): number =>
+	Math.min(Math.floor(height / rows), Math.floor(width / cols));
