@@ -18,7 +18,7 @@ class Store {
 	#widgetAreas: WidgetAreas = []; // contains all of the blocks that widgets are covering
 
 	constructor() {
-		this.#updateWidgetAreas()	
+		if (profiles.isSetup) this.#updateWidgetAreas()	
 	}
 
 	// only getters to make sure these variables are being set by either 'startDrag' or 'startPlace'
