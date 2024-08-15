@@ -10,6 +10,7 @@
 		children: Snippet;
 	};
 	let { children }: Props = $props();
+	$effect(() => console.info(edit.dragging, edit.dragMode))
 </script>
 
 {#snippet GridComp(gridUnderlay: boolean)}

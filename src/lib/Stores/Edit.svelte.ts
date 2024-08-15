@@ -45,6 +45,7 @@ class Store {
 					}
 				}
 			};
+			this.#updateWidgetAreas()
 		} else {
 			if (!id || offset === undefined || typeof widget === 'string')
 				throw new Error('Missing parameters.');

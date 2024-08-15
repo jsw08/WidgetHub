@@ -33,7 +33,7 @@
 	<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 	<!-- svelte-ignore a11y_click_events_have_key_events -->
 	<div tabindex="0" role="button" class="btn btn-square m-1 " onclick={doubleClick}>
-		<span class="icon-[mdi--hamburger] w-[70%] h-[70%]"></span>
+		<span class="icon-[mdi--hamburger] w-[70%] h-[70%]" class:text-warning={hide && !edit.edit }></span>
 	</div>
 	<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 	<ul

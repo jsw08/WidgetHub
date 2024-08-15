@@ -24,7 +24,9 @@
 			</WidgetWrapper>
 		{/each}
 	</Grid>
-	<BurgerMenu />
+	{#if !edit.dragging}
+		<BurgerMenu />
+	{/if}
 {:else}
 	<Setup />
 {/if}
