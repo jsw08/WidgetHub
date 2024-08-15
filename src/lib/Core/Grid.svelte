@@ -25,7 +25,7 @@
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div
 		style="grid-area: center;"
-		class="grid rounded-md w-fit h-fit {gridUnderlay ? edit.dragging ? "z-20" : "z-[-1" : ""}"
+		class="grid rounded-md w-fit h-fit {gridUnderlay ? (edit.dragging ? 'z-20' : 'z-[-1') : ''}"
 		class:border-2={edit.edit}
 		style:grid-template-rows={`repeat(${rows}, minmax(0, ${boxSize}px))`}
 		style:grid-template-columns={`repeat(${cols}, minmax(0, ${boxSize}px))`}
@@ -36,9 +36,14 @@
 					<!-- svelte-ignore a11y_no_static_element_interactions -->
 					<!-- svelte-ignore a11y_mouse_events_have_key_events -->
 					<span
-						class="w-full h-full border-[1px] border-dashed opacity-20 {edit.dragging && edit.dragMode === 'place' ? edit.isPlaceable(x,y) ? "bg-success" : "bg-error" : ""}"
+						class="w-full h-full border-[1px] border-dashed opacity-20 {edit.dragging &&
+						edit.dragMode === 'place'
+							? edit.isPlaceable(x, y)
+								? 'bg-success'
+								: 'bg-error'
+							: ''}"
 						onmouseover={(_) => mouseOverHandler(x, y)}
-						onclick={_ => clickHandler(x, y)}
+						onclick={(_) => clickHandler(x, y)}
 					></span>
 				{/each}
 			{/each}

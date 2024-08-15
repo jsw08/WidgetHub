@@ -28,11 +28,11 @@
 		<span
 			class="w-5 h-5 absolute z-10 right-0 bottom-0 border-0 border-b-4 border-r-4 border-neutral-content hover:border-info"
 			class:border-info={edit.dragMode === 'resize' && edit.dragging}
-			onmousedown={_ => startDrag('resize')}
+			onmousedown={(_) => startDrag('resize')}
 		></span>
 		<span
 			class="w-5 h-5 absolute z-10 right-0 top-0 icon-[material-symbols--close] hover:text-error"
-			onmousedown={_ => edit.deleteWidget(id)}
+			onmousedown={(_) => edit.deleteWidget(id)}
 		></span>
 	{/if}
 </div>

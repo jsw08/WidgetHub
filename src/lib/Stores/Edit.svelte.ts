@@ -5,7 +5,7 @@ export type MouseCoords = {
 	y: number;
 };
 type dragMode = 'move' | 'resize' | 'place';
-type WidgetAreas = `${number}.${number}`[] 
+type WidgetAreas = `${number}.${number}`[];
 
 const hasDuplicates = (arr: Array<any>) => arr.length !== new Set(arr).size;
 class Store {
@@ -18,7 +18,7 @@ class Store {
 	#widgetAreas: WidgetAreas = []; // contains all of the blocks that widgets are covering
 
 	constructor() {
-		if (profiles.isSetup) this.#updateWidgetAreas()	
+		if (profiles.isSetup) this.#updateWidgetAreas();
 	}
 
 	// only getters to make sure these variables are being set by either 'startDrag' or 'startPlace'
@@ -45,7 +45,7 @@ class Store {
 					}
 				}
 			};
-			this.#updateWidgetAreas()
+			this.#updateWidgetAreas();
 		} else {
 			if (!id || offset === undefined || typeof widget === 'string')
 				throw new Error('Missing parameters.');
@@ -63,11 +63,11 @@ class Store {
 	}
 
 	deleteWidget(id: string) {
-		delete profiles.profile.widgets[id]
+		delete profiles.profile.widgets[id];
 		profiles.profile = {
 			...profiles.profile
-		}
-		this.#updateWidgetAreas()
+		};
+		this.#updateWidgetAreas();
 	}
 	moveWidget(loc: MouseCoords) {
 		if (!this.dragging || this.dragMode !== 'move' || !this.focus) return;
@@ -95,7 +95,7 @@ class Store {
 		};
 		newSize = {
 			height: newSize.height >= minSize.minHeight ? newSize.height : minSize.minHeight,
-			width: newSize.width >= minSize.minWidth ? newSize.width : minSize.minWidth,
+			width: newSize.width >= minSize.minWidth ? newSize.width : minSize.minWidth
 		};
 
 		if (
@@ -123,7 +123,7 @@ class Store {
 		};
 
 		this.#updateWidgetAreas(); // only update widgetAreas if item is going to be placed or moved (see checkPos)
-		this.stopDrag()
+		this.stopDrag();
 	}
 	// Functions to calculate where widgets are and if they are overlapping
 	isPlaceable(x: number, y: number): boolean {
@@ -146,7 +146,8 @@ class Store {
 		for (const widget of widgets) {
 			const size = widget.size;
 			for (let [w, _] of new Array(size.width).entries())
-				for (let [h, _] of new Array(size.height).entries()) occupiedAreas.push(`${w + size.x}.${h + size.y}`);
+				for (let [h, _] of new Array(size.height).entries())
+					occupiedAreas.push(`${w + size.x}.${h + size.y}`);
 		}
 
 		return occupiedAreas;
@@ -166,7 +167,7 @@ class Store {
 		let widgetAreas = this.#getWidgetAreas(newWidgets);
 
 		const isMovable = !hasDuplicates(widgetAreas);
-		if (!isMovable) this.#updateWidgetAreas(widgetAreas)
+		if (!isMovable) this.#updateWidgetAreas(widgetAreas);
 		// only update widgetAreas if item is going to be moved or if item is going to be placed (check placeItem)
 		return isMovable;
 	}

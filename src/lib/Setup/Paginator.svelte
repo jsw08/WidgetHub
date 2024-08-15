@@ -16,7 +16,7 @@
 	<div class="join flex-none">
 		{#if setup.index !== 0}
 			<button class="btn btn-square join-item" onclick={(_) => setup.index--}>
-				<span class="icon-[mdi--navigate-before] w-[70%] h-[70%]" ></span>
+				<span class="icon-[mdi--navigate-before] w-[70%] h-[70%]"></span>
 			</button>
 		{/if}
 		{#if finalPage}
