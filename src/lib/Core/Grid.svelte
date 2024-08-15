@@ -2,6 +2,7 @@
 	import type { Snippet } from 'svelte';
 	import { edit } from '../Stores/Edit.svelte';
 	import { profiles } from '../Stores/Profiles.svelte';
+	import { stopPropagation } from '../eventModifiers';
 
 	let { rows, cols, boxSize } = $derived(profiles.profile.gridSize);
 
@@ -38,10 +39,10 @@
 							if (edit.dragMode === 'move') edit.moveWidget({ x, y });
 							if (edit.dragMode === 'resize') edit.resizeWidget({ x, y });
 						}}
-						onclick={(_) => {
+						onclick={stopPropagation((_) => {
 							if (edit.dragging && edit.dragMode === 'place' && edit.isPlaceable(x, y))
 								edit.placeWidget(x, y);
-						}}
+						})}
 					>
 					</span>
 				{/each}
