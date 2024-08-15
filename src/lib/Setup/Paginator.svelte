@@ -22,9 +22,7 @@
 		{#if finalPage}
 			<button
 				class="btn btn-square btn-primary join-item"
-				onclick={() => {
-					setup.finish();
-				}}
+				onclick={setup.finish}
 			>
 				<span class="icon-[pajamas--review-checkmark] w-[60%] h-[60%]"></span>
 			</button>
@@ -36,7 +34,6 @@
 					if (next) next();
 					setup.index++;
 				}}
-				class:btn-disabled={disabled}
 				{disabled}
 			>
 				<span class="icon-[mdi--navigate-next] w-[70%] h-[70%]"></span>

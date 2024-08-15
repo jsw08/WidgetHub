@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { profiles } from '../Stores/Profiles.svelte';
 	import Paginator from './Paginator.svelte';
 </script>
 
