@@ -94,8 +94,8 @@ class Store {
 			width: loc.x - size.x + 1
 		};
 		newSize = {
-			height: newSize.height > minSize.minHeight ? newSize.height : 1,
-			width: newSize.width > minSize.minWidth ? newSize.width : 1
+			height: newSize.height >= minSize.minHeight ? newSize.height : minSize.minHeight,
+			width: newSize.width >= minSize.minWidth ? newSize.width : minSize.minWidth,
 		};
 
 		if (
