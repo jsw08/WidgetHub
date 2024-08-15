@@ -9,17 +9,13 @@ type WidgetAreas = `${number}.${number}`[];
 
 const hasDuplicates = (arr: Array<any>) => arr.length !== new Set(arr).size;
 class Store {
-	edit: boolean = $state(false);
-	#dragging: boolean = $state(false);
 	#dragMode: dragMode | undefined = $state();
+	#dragging: boolean = $state(false);
+	#widgetAreas: WidgetAreas = []; // contains all of the blocks that widgets are covering
+	edit: boolean = $state(false);
 	focus: undefined | { id: string; widget: Widget } = $state();
 	mouseCoords: MouseCoords = $state({ x: 0, y: 0 });
 	mouseCoordsOffset: number = $state(0);
-	#widgetAreas: WidgetAreas = []; // contains all of the blocks that widgets are covering
-
-	constructor() {
-		if (profiles.isSetup) this.#updateWidgetAreas();
-	}
 
 	// only getters to make sure these variables are being set by either 'startDrag' or 'startPlace'
 	get dragging() {
@@ -57,8 +53,8 @@ class Store {
 		this.#dragMode = dragMode;
 	}
 	stopDrag() {
-		this.focus;
-		this.#dragMode;
+		this.focus = undefined;
+		this.#dragMode = undefined;
 		this.#dragging = false;
 	}
 
@@ -67,7 +63,6 @@ class Store {
 		profiles.profile = {
 			...profiles.profile
 		};
-		this.#updateWidgetAreas();
 	}
 	moveWidget(loc: MouseCoords) {
 		if (!this.dragging || this.dragMode !== 'move' || !this.focus) return;
@@ -122,7 +117,6 @@ class Store {
 			...profiles.profile
 		};
 
-		this.#updateWidgetAreas(); // only update widgetAreas if item is going to be placed or moved (see checkPos)
 		this.stopDrag();
 	}
 	// Functions to calculate where widgets are and if they are overlapping
@@ -168,7 +162,7 @@ class Store {
 
 		const isMovable = !hasDuplicates(widgetAreas);
 		if (!isMovable) this.#updateWidgetAreas(widgetAreas);
-		// only update widgetAreas if item is going to be moved or if item is going to be placed (check placeItem)
+		// only update widgetAreas if it's calculated anyway or when it's needed.
 		return isMovable;
 	}
 	#updateWidgetAreas(override?: WidgetAreas) {
