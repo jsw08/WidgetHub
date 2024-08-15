@@ -48,7 +48,7 @@
 </div>
 
 <Paginator next={() => (setup.profile.gridSize = gridSize)}>
-	<input type="range" min="10" max="200" class="range" bind:value={boxSize} {oninput} />
+	<input type="range" min="40" max="200" class="range" bind:value={boxSize} {oninput} />
 	<div class="flex flex-col justify-center items-left text-xs font-mono flex-none">
 		<span>box : {gridSize.boxSize}</span>
 		<span>rows: {gridSize.rows}</span>
