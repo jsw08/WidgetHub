@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { profiles, Widgets } from '../Stores/Profiles.svelte';
+	import { Widgets } from '../Stores/Profiles.svelte';
 	type Props = {
 		open: boolean;
 		pick: (widget: string) => any;
@@ -9,7 +9,7 @@
 	let widget: string = $state(defaultOptionValue);
 </script>
 
-<dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle" open>
+<dialog class="modal modal-bottom sm:modal-middle" open>
 	<div class="modal-box">
 		<h3 class="text-lg font-bold">Select a widget</h3>
 		<div class="modal-action flex flex-row">

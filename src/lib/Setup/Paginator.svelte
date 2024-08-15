@@ -11,36 +11,35 @@
 	let { children, disabled, next }: Props = $props();
 </script>
 
-<div class="modal-action flex flex-row items-center">
+<div
+	class="modal-action flex flex-row items-center"
+	onsubmit={(e) => {
+		e.preventDefault();
+		next?.();
+		if (finalPage) setup.finish();
+		else setup.index++;
+	}}
+>
 	{#if children}{@render children()}{/if}
-	<div class="join flex-none">
+	<form class="join flex-none">
 		{#if setup.index !== 0}
 			<button class="btn btn-square join-item" onclick={(_) => setup.index--}>
-				<span class="icon-[mdi--navigate-before] w-[70%] h-[70%]" ></span>
+				<span class="icon-[mdi--navigate-before] w-[70%] h-[70%]"></span>
 			</button>
 		{/if}
 		{#if finalPage}
-			<button
-				class="btn btn-square btn-primary join-item"
-				onclick={() => {
-					setup.finish();
-				}}
-			>
+			<button class="btn btn-square btn-primary join-item" type="submit">
 				<span class="icon-[pajamas--review-checkmark] w-[60%] h-[60%]"></span>
 			</button>
 		{:else}
 			<button
 				class="btn btn-square btn-primary join-item"
 				class:join-item={setup.index !== 0}
-				onclick={(_) => {
-					if (next) next();
-					setup.index++;
-				}}
-				class:btn-disabled={disabled}
+				type="submit"
 				{disabled}
 			>
 				<span class="icon-[mdi--navigate-next] w-[70%] h-[70%]"></span>
 			</button>
 		{/if}
-	</div>
+	</form>
 </div>

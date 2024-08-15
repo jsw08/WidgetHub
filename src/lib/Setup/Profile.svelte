@@ -15,8 +15,6 @@
 		type="text"
 		placeholder="E.g: 'default'"
 		class="input input-bordered flex-grow min-w-0"
-		on:keypress={(e) => {
-			if (e.key === 'Enter') setup.index++;
-		}}
+		onkeypress={(e) => (e.key === 'Enter' ? setup.index++ : void 0)}
 	/>
 </Paginator>

@@ -3,13 +3,11 @@
 	import { edit } from '../Stores/Edit.svelte';
 	import { profiles } from '../Stores/Profiles.svelte';
 
-	let { rows, cols, boxSize } = $derived(profiles.profile.gridSize);
-
 	type Props = {
 		children: Snippet;
 	};
 	let { children }: Props = $props();
-	$effect(() => console.info(edit.dragging, edit.dragMode));
+	let { rows, cols, boxSize } = $derived(profiles.profile.gridSize);
 
 	const mouseOverHandler = (x: number, y: number) => {
 		if (!edit.dragging || edit.dragMode === undefined) return;
@@ -27,12 +25,10 @@
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div
 		style="grid-area: center;"
-		class="grid rounded-md w-fit h-fit"
+		class="grid rounded-md w-fit h-fit {gridUnderlay ? (edit.dragging ? 'z-20' : 'z-[-1') : ''}"
+		class:border-2={edit.edit}
 		style:grid-template-rows={`repeat(${rows}, minmax(0, ${boxSize}px))`}
 		style:grid-template-columns={`repeat(${cols}, minmax(0, ${boxSize}px))`}
-		class:z-[-1]={gridUnderlay && !edit.dragging}
-		class:z-20={edit.dragging && gridUnderlay}
-		class:border-2={edit.edit}
 	>
 		{#if gridUnderlay}
 			{#each Array(rows) as _, y}
@@ -40,13 +36,15 @@
 					<!-- svelte-ignore a11y_no_static_element_interactions -->
 					<!-- svelte-ignore a11y_mouse_events_have_key_events -->
 					<span
-						class="w-full h-full border-dashed border-[1px] opacity-20"
-						class:bg-success={edit.dragging && edit.dragMode === 'place' && edit.isPlaceable(x, y)}
-						class:bg-error={edit.dragging && edit.dragMode === 'place' && !edit.isPlaceable(x, y)}
+						class="w-full h-full border-[1px] border-dashed opacity-20 {edit.dragging &&
+						edit.dragMode === 'place'
+							? edit.isPlaceable(x, y)
+								? 'bg-success'
+								: 'bg-error'
+							: ''}"
 						onmouseover={(_) => mouseOverHandler(x, y)}
-						onclick={_ => clickHandler(x, y)}
-					>
-					</span>
+						onclick={(_) => clickHandler(x, y)}
+					></span>
 				{/each}
 			{/each}
 		{:else}

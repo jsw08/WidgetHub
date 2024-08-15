@@ -9,19 +9,19 @@
 		cols: 0,
 		boxSize: 0
 	});
-	let boxVisibility = $state(false);
 	const setSize = () => {
 		gridSize = calcGridSize(innerWidth, innerHeight, boxSize);
 		window.onresize = setSize;
 	};
 	$effect(setSize);
 
+	let boxVisibility = $state(false);
 	let moveTimeout: number;
 	const oninput = () => {
-		clearTimeout(moveTimeout)
-		moveTimeout = setInterval(() => boxVisibility = false, 500)
+		clearTimeout(moveTimeout);
+		moveTimeout = setInterval(() => (boxVisibility = false), 500);
 		boxVisibility = true;
-	}
+	};
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
@@ -47,19 +47,8 @@
 	>
 </div>
 
-<Paginator
-	next={() => {
-		setup.profile.gridSize = gridSize;
-	}}
->
-	<input
-		type="range"
-		min="10"
-		max="200"
-		class="range"
-		bind:value={boxSize}
-		{ oninput }
-	/>
+<Paginator next={() => (setup.profile.gridSize = gridSize)}>
+	<input type="range" min="10" max="200" class="range" bind:value={boxSize} {oninput} />
 	<div class="flex flex-col justify-center items-left text-xs font-mono flex-none">
 		<span>box : {gridSize.boxSize}</span>
 		<span>rows: {gridSize.rows}</span>

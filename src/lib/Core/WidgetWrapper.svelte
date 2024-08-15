@@ -1,7 +1,8 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { edit } from '../Stores/Edit.svelte';
 	import { type Widget } from '../Stores/Profiles.svelte';
+	import { edit } from '../Stores/Edit.svelte';
+	import { stopPropagation } from '../eventModifiers';
 
 	type Props = {
 		widget: Widget;
@@ -18,21 +19,21 @@
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
 	class="select-none border-neutral relative"
-	onmousedown={(_) => startDrag('move')}
+	class:border-2={edit.edit}
 	style:grid-row={`${y + 1} / span ${height}`}
 	style:grid-column={`${x + 1} / span ${width}`}
-	class:border-2={edit.edit}
+	onmousedown={(_) => startDrag('move')}
 >
 	{@render children()}
 	{#if edit.edit}
 		<span
 			class="w-5 h-5 absolute z-10 right-0 bottom-0 border-0 border-b-4 border-r-4 border-neutral-content hover:border-info"
 			class:border-info={edit.dragMode === 'resize' && edit.dragging}
-			onmousedown={_ => startDrag('resize')}
+			onmousedown={stopPropagation((_) => startDrag('resize'))}
 		></span>
 		<span
 			class="w-5 h-5 absolute z-10 right-0 top-0 icon-[material-symbols--close] hover:text-error"
-			onmousedown={_ => edit.deleteWidget(id)}
+			onmousedown={stopPropagation((_) => edit.deleteWidget(id))}
 		></span>
 	{/if}
 </div>
