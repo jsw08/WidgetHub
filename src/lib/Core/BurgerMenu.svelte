@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { edit } from '../Stores/Edit.svelte';
 	import WidgetChooser from './WidgetChooser.svelte';
+	import { edit } from '../Stores/Edit.svelte';
+	import { options } from '../Stores/Options.svelte';
 
 	let hide = false;
 	let clicked = false;
@@ -44,7 +45,7 @@
 			hide && !edit.edit ? (document.activeElement as HTMLElement).blur() : void 0}
 	>
 		<li>
-			<button class="btn btn-square">
+			<button class="btn btn-square" onclick={_ => options.open = true}>
 				<!-- Settings -->
 				<span class="icon-[material-symbols--settings-rounded] w-[70%] h-[70%]"></span>
 			</button>
@@ -58,9 +59,13 @@
 		<li>
 			<!-- Edit button -->
 			<button class="btn btn-square" onclick={(_) => (edit.edit = !edit.edit)}>
-				<span class="icon-[material-symbols--edit{edit.edit ? '-off' : ''}-rounded] w-[70%] h-[70%]"
+				<span 
+					class="w-[70%] h-[70%]"
+					class:icon-[material-symbols--edit-rounded]={!edit.edit}
+					class:icon-[material-symbols--edit-off-rounded]={edit.edit}
 				></span>
 			</button>
+			<!-- Make sure tailwind includes these classes -->
 		</li>
 	</ul>
 </div>
