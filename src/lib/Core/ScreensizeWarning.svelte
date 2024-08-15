@@ -21,7 +21,7 @@
 <dialog class="modal modal-bottom sm:modal-middle bg-base-100" {open}>
 	<div class="modal-box bg-error text-error-content">
 		<h3 class="text-lg font-bold">Invalid window size</h3>
-		<p class="py-4">
+		<p class="pt-4">
 			Resize the window to make it larger or press the reset button to reset your profiles or press
 			Resize to recalculate.
 		</p>
