@@ -6,7 +6,8 @@ import { default as ProfileSetup } from '../Setup/Profile.svelte';
 import Screen from '../Setup/Screen.svelte';
 import Finished from '../Setup/Finished.svelte';
 
-class Store { // Seperate store for setup because i've split setup up in many seperate files
+class Store {
+	// Seperate store for setup because i've split setup up in many seperate files
 	pages: Component<{}>[] = $state([Welcome, ProfileSetup, Screen, Finished]);
 	index: number = $state(0);
 	profile: Profile = $state({

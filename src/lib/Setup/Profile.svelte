@@ -13,8 +13,8 @@
 	<input
 		bind:value={setup.profileName}
 		type="text"
-		placeholder="For example: 'default'"
-		class="input input-bordered flex-grow"
+		placeholder="E.g: 'default'"
+		class="input input-bordered flex-grow min-w-0"
 		on:keypress={(e) => {
 			if (e.key === 'Enter') setup.index++;
 		}}
