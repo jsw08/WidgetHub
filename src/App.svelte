@@ -5,6 +5,7 @@
 	import { edit } from './lib/Stores/Edit.svelte';
 	import { profiles, type Widget, Widgets } from './lib/Stores/Profiles.svelte';
 	import WidgetWrapper from './lib/Core/WidgetWrapper.svelte';
+	import ScreensizeWarning from './lib/Core/ScreensizeWarning.svelte';
 
 	let widgets: Widget[] = $derived(Object.values(profiles.profile.widgets));
 	let widgetsIDS: string[] = $derived(Object.keys(profiles.profile.widgets));
@@ -23,6 +24,7 @@
 	{#if !edit.dragging}
 		<BurgerMenu />
 	{/if}
+	<ScreensizeWarning/>
 {:else}
 	<Setup />
 {/if}
