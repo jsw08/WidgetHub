@@ -2,7 +2,6 @@
 	import type { Snippet } from 'svelte';
 	import { edit } from '../Stores/Edit.svelte';
 	import { profiles } from '../Stores/Profiles.svelte';
-	import { stopPropagation } from '../eventModifiers';
 
 	let { rows, cols, boxSize } = $derived(profiles.profile.gridSize);
 
@@ -18,10 +17,9 @@
 		if (edit.dragMode === 'resize') edit.resizeWidget({ x, y });
 	};
 	const clickHandler = (x: number, y: number) =>
-		stopPropagation((_) => {
-			if (edit.dragging && edit.dragMode === 'place' && edit.isPlaceable(x, y))
-				edit.placeWidget(x, y);
-		});
+		edit.dragging && edit.dragMode === 'place' && edit.isPlaceable(x, y)
+			? edit.placeWidget(x, y)
+			: void 0;
 </script>
 
 {#snippet GridComp(gridUnderlay: boolean)}
@@ -35,7 +33,6 @@
 		class:z-[-1]={gridUnderlay && !edit.dragging}
 		class:z-20={edit.dragging && gridUnderlay}
 		class:border-2={edit.edit}
-		onclick={(_) => gridUnderlay && edit.stopDrag()}
 	>
 		{#if gridUnderlay}
 			{#each Array(rows) as _, y}
@@ -47,9 +44,9 @@
 						class:bg-success={edit.dragging && edit.dragMode === 'place' && edit.isPlaceable(x, y)}
 						class:bg-error={edit.dragging && edit.dragMode === 'place' && !edit.isPlaceable(x, y)}
 						onmouseover={(_) => mouseOverHandler(x, y)}
-						ontouchmove={_ => mouseOverHandler(x,y)}
-						onclick={(_) => clickHandler(x, y)}
-						ontouchstart={_ => clickHandler(x,y)}
+						ontouchmove={(_) => mouseOverHandler(x, y)}
+						onclick={_ => clickHandler(x, y)}
+						ontouchstart={(_) => clickHandler(x, y)}
 					>
 					</span>
 				{/each}
