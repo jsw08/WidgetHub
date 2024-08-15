@@ -44,9 +44,7 @@
 						class:bg-success={edit.dragging && edit.dragMode === 'place' && edit.isPlaceable(x, y)}
 						class:bg-error={edit.dragging && edit.dragMode === 'place' && !edit.isPlaceable(x, y)}
 						onmouseover={(_) => mouseOverHandler(x, y)}
-						ontouchmove={(_) => mouseOverHandler(x, y)}
 						onclick={_ => clickHandler(x, y)}
-						ontouchstart={(_) => clickHandler(x, y)}
 					>
 					</span>
 				{/each}
