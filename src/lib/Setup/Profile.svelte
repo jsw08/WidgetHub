@@ -15,6 +15,6 @@
 		type="text"
 		placeholder="E.g: 'default'"
 		class="input input-bordered flex-grow min-w-0"
-		onkeypress={e => e.key === "Enter" ? setup.index++ : void 0}
+		onkeypress={(e) => (e.key === 'Enter' ? setup.index++ : void 0)}
 	/>
 </Paginator>

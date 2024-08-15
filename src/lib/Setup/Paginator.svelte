@@ -11,12 +11,15 @@
 	let { children, disabled, next }: Props = $props();
 </script>
 
-<div class="modal-action flex flex-row items-center" onsubmit={e => {
-	e.preventDefault();
-	next?.();
-	if (finalPage) setup.finish()
-	else setup.index++
-}}>
+<div
+	class="modal-action flex flex-row items-center"
+	onsubmit={(e) => {
+		e.preventDefault();
+		next?.();
+		if (finalPage) setup.finish();
+		else setup.index++;
+	}}
+>
 	{#if children}{@render children()}{/if}
 	<form class="join flex-none">
 		{#if setup.index !== 0}
@@ -25,10 +28,7 @@
 			</button>
 		{/if}
 		{#if finalPage}
-			<button
-				class="btn btn-square btn-primary join-item"
-				type="submit"
-			>
+			<button class="btn btn-square btn-primary join-item" type="submit">
 				<span class="icon-[pajamas--review-checkmark] w-[60%] h-[60%]"></span>
 			</button>
 		{:else}
