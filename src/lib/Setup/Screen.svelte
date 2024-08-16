@@ -3,25 +3,23 @@
 	import { setup } from '../Stores/Setup.svelte';
 	import Paginator from './Paginator.svelte';
 
-	let boxSize = $state(100);
+	let boxVisibility = $state(false);
+	let moveTimeout: number;
+	let boxSize = $state(0);
 	let gridSize: GridSize & { boxSize: number } = $state({
 		rows: 0,
 		cols: 0,
 		boxSize: 0
 	});
-	const setSize = () => {
-		gridSize = calcGridSize(innerWidth, innerHeight, boxSize);
-		window.onresize = setSize;
-	};
-	$effect(setSize);
 
-	let boxVisibility = $state(false);
-	let moveTimeout: number;
+	const getGrid = () => calcGridSize(innerWidth, innerHeight, boxSize);
 	const oninput = () => {
+		gridSize = getGrid()
 		clearTimeout(moveTimeout);
 		moveTimeout = setInterval(() => (boxVisibility = false), 500);
 		boxVisibility = true;
 	};
+	$effect(() => window.onresize = oninput);
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
@@ -47,7 +45,7 @@
 	>
 </div>
 
-<Paginator next={() => (setup.profile.gridSize = gridSize)}>
+<Paginator next={() => (setup.profile.gridSize = getGrid())} disabled={boxSize === 0}>
 	<input type="range" min="40" max="200" class="range" bind:value={boxSize} {oninput} />
 	<div class="flex flex-col justify-center items-left text-xs font-mono flex-none">
 		<span>box : {gridSize.boxSize}</span>
