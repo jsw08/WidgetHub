@@ -3,7 +3,7 @@
 </script>
 
 <h3>Profile</h3>
-<ul class="menu bg-base-200 rounded-box w-56">
+<ul class="menu bg-base-200 rounded-box w-full mt-4">
 	{#each Object.keys(profiles.profiles) as p}
 		<li>
 			<!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -24,3 +24,10 @@
 		</li>
 	{/each}
 </ul>
+<div class="divider"></div>
+<label class="form-control w-full max-w-xs">
+    <div class="label">
+      <span class="label-text">Add a new profile</span>
+    </div>
+    <input type="text" placeholder="Enter a name here" class="input input-bordered w-full max-w-xs" />
+</label>

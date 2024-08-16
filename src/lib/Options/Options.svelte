@@ -34,7 +34,8 @@
 	<div class="modal-box">
 		<h3 class="text-lg font-bold">Options</h3>
     <svelte:component this={activeTab.component}/>
-		<div class="modal-action flex flex-row justify-between">
+		<div class="divider mb-2"></div>
+		<div class="modal-action flex flex-row justify-between mt-0">
 			<div role="tablist" class="px-2 tabs tabs-boxed flex flex-row items-center">
 				{#each tabs as tab}
 					<!-- svelte-ignore a11y_interactive_supports_focus -->
