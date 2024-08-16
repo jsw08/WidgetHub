@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { calcGridSize, type GridSize } from '../Core/gridSize';
+	import { edit, minBoxSize } from '../Stores/Edit.svelte';
 	import { setup } from '../Stores/Setup.svelte';
 	import Paginator from './Paginator.svelte';
 
@@ -45,8 +46,8 @@
 	>
 </div>
 
-<Paginator next={() => (setup.profile.gridSize = getGrid())} disabled={boxSize === 0}>
-	<input type="range" min="40" max="200" class="range" bind:value={boxSize} {oninput} />
+<Paginator next={() => (setup.profile.gridSize = getGrid())} disabled={boxSize < minBoxSize}>
+	<input type="range" min={minBoxSize} max="200" class="range" bind:value={boxSize} {oninput} />
 	<div class="flex flex-col justify-center items-left text-xs font-mono flex-none">
 		<span>box : {gridSize.boxSize}</span>
 		<span>rows: {gridSize.rows}</span>

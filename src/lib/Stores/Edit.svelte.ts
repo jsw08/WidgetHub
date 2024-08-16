@@ -84,13 +84,14 @@ class Store {
 
 		const size = this.focus.widget.size;
 		const minSize = Widgets[this.focus.widget.component].size;
+		const boxSize = profiles.profile.gridSize.boxSize
 		let newSize: { width: number; height: number } = {
 			height: loc.y - size.y + 1,
 			width: loc.x - size.x + 1
 		};
 		newSize = {
-			height: newSize.height >= minSize.minHeight ? newSize.height : minSize.minHeight,
-			width: newSize.width >= minSize.minWidth ? newSize.width : minSize.minWidth
+			height: newSize.height * boxSize >= minSize.minHeight * minBoxSize ? newSize.height : minSize.minHeight,
+			width: newSize.width * boxSize >= minSize.minWidth * minBoxSize ? newSize.width : minSize.minWidth
 		};
 
 		if (
@@ -171,3 +172,4 @@ class Store {
 }
 
 export const edit = new Store();
+export const minBoxSize: number = 40;
