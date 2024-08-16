@@ -29,6 +29,7 @@ class Store {
 	startDrag(dragMode: dragMode, widget: Widget | string, id?: string, offset?: number): void {
 		if (dragMode === 'place') {
 			if (typeof widget !== 'string') return;
+			const boxSize = profiles.profile.gridSize.boxSize
 			this.focus = {
 				id: crypto.randomUUID(),
 				widget: {
@@ -36,8 +37,8 @@ class Store {
 					size: {
 						x: 0,
 						y: 0,
-						width: Widgets[widget].size.minWidth,
-						height: Widgets[widget].size.minHeight
+						width: Math.ceil(Widgets[widget].size.minWidth * 40 / boxSize),
+						height: Math.ceil(Widgets[widget].size.minHeight * 40 / boxSize)
 					}
 				}
 			};
