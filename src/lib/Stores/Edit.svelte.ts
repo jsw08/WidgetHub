@@ -29,6 +29,7 @@ class Store {
 	startDrag(dragMode: dragMode, widget: Widget | string, id?: string, offset?: number): void {
 		if (dragMode === 'place') {
 			if (typeof widget !== 'string') return;
+			const boxSize = profiles.profile.gridSize.boxSize
 			this.focus = {
 				id: crypto.randomUUID(),
 				widget: {
@@ -36,8 +37,8 @@ class Store {
 					size: {
 						x: 0,
 						y: 0,
-						width: Widgets[widget].size.minWidth,
-						height: Widgets[widget].size.minHeight
+						width: Math.ceil(Widgets[widget].size.minWidth * 40 / boxSize),
+						height: Math.ceil(Widgets[widget].size.minHeight * 40 / boxSize)
 					}
 				}
 			};
@@ -84,13 +85,14 @@ class Store {
 
 		const size = this.focus.widget.size;
 		const minSize = Widgets[this.focus.widget.component].size;
+		const boxSize = profiles.profile.gridSize.boxSize
 		let newSize: { width: number; height: number } = {
 			height: loc.y - size.y + 1,
 			width: loc.x - size.x + 1
 		};
 		newSize = {
-			height: newSize.height >= minSize.minHeight ? newSize.height : minSize.minHeight,
-			width: newSize.width >= minSize.minWidth ? newSize.width : minSize.minWidth
+			height: newSize.height * boxSize >= minSize.minHeight * minBoxSize ? newSize.height : minSize.minHeight,
+			width: newSize.width * boxSize >= minSize.minWidth * minBoxSize ? newSize.width : minSize.minWidth
 		};
 
 		if (
@@ -171,3 +173,4 @@ class Store {
 }
 
 export const edit = new Store();
+export const minBoxSize: number = 40;

@@ -11,8 +11,9 @@
 	let { children, disabled, next }: Props = $props();
 </script>
 
+<div class="divider mb-0"></div>
 <div
-	class="modal-action flex flex-row items-center"
+	class="modal-action flex flex-row items-center mt-1"
 	onsubmit={(e) => {
 		e.preventDefault();
 		next?.();
