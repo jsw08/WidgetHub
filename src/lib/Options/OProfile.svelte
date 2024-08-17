@@ -3,12 +3,14 @@
 	import { profiles } from '../Stores/Profiles.svelte';
 
 	let newProfileName = $state('');
-    let profileNameConflicts = $derived(!newProfileName || Object.keys(profiles.profiles).includes(newProfileName))
+	let profileNameConflicts = $derived(
+		!newProfileName || Object.keys(profiles.profiles).includes(newProfileName)
+	);
 	const createProfile = (e: SubmitEvent) => {
 		e.preventDefault();
 		if (profileNameConflicts) return;
-        profiles.createProfile(newProfileName)
-        newProfileName = ""
+		profiles.createProfile(newProfileName);
+		newProfileName = '';
 	};
 </script>
 
@@ -33,7 +35,9 @@
 					<button
 						class="btn btn-xs btn-square disabled:bg-base-100 disabled:text-base-content btn-error join-item"
 						disabled={p === profiles.activeProfile}
-                        onclick={stopPropagation(_ => {profiles.deleteProfile(p)})}
+						onclick={stopPropagation((_) => {
+							profiles.deleteProfile(p);
+						})}
 					>
 						<span class="icon-[material-symbols--delete] w-[80%] h-[80%]"></span>
 					</button>
@@ -52,7 +56,7 @@
 		class="input input-bordered flex-grow"
 	/>
 	<button type="submit" class="btn btn-primary btn-square" disabled={profileNameConflicts}>
-        <span class="">submit</span></button
-	>
+		<span class="icon-[material-symbols--note-add] w-[65%] h-[65%]"></span>
+	</button>
 	<!-- TODO: replace 'submit' with icon but i'm offline rn -->
 </form>
