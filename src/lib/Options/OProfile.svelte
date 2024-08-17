@@ -1,6 +1,8 @@
 <script lang="ts">
 	import Grid from '../Core/Grid.svelte';
 	import { calcGridSize } from '../Core/gridSize';
+	import { stopPropagation } from '../eventModifiers';
+	import Profile from '../Setup/Profile.svelte';
 	import { emptyProfile, profiles } from '../Stores/Profiles.svelte';
 
 	let newProfileName = $state('');
@@ -8,20 +10,7 @@
 	const createProfile = (e: SubmitEvent) => {
 		e.preventDefault();
 		if (profileNameConflicts) return;
-
-		e.type;
-		const gridSize = calcGridSize(innerWidth, innerHeight, emptyProfile.gridSize.boxSize);
-		const profile = {
-			...emptyProfile,
-			...{
-				gridSize
-			}
-		};
-		profiles.profiles = {
-			...profiles.profiles,
-			[newProfileName]: profile
-		};
-		alert(JSON.stringify(profile));
+        profiles.createProfile(newProfileName)
 	};
 </script>
 
@@ -46,6 +35,7 @@
 					<button
 						class="btn btn-xs btn-square disabled:bg-base-100 disabled:text-base-content btn-error join-item"
 						disabled={p === profiles.activeProfile}
+                        onclick={stopPropagation(_ => {profiles.deleteProfile(p)})}
 					>
 						<span class="icon-[material-symbols--delete] w-[80%] h-[80%]"></span>
 					</button>

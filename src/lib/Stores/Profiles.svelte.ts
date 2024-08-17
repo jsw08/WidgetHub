@@ -1,5 +1,5 @@
 import type { Component } from 'svelte';
-import type { GridSize } from '../Core/gridSize';
+import { calcGridSize, type GridSize } from '../Core/gridSize';
 import Test from '../Widgets/Test.svelte';
 
 export type Profile = {
@@ -112,6 +112,25 @@ class Store {
 			// Trigger setter
 			...this.profile
 		};
+	}
+    createProfile(name: string) {
+        if (!name || Object.keys(this.profiles).includes(name)) throw Error("Invalid name.")
+		const gridSize = calcGridSize(innerWidth, innerHeight, emptyProfile.gridSize.boxSize);
+        this.profile = {
+            ...this.profile,
+            [name]: {
+                ...emptyProfile,
+                ...{
+                    gridSize
+                }
+            }
+        }
+    }
+	deleteProfile(name: string) {
+		if (!this.profiles[name]) throw new Error("Profile not found.")	
+
+		const {[name]: old, ...newProfiles} = this.profiles
+		this.profiles = newProfiles
 	}
 }
 
