@@ -36,7 +36,6 @@ class Store {
 	#activeProfile: string = $state('');
 	#isSetup = $state(false);
 	#profiles: { [x: string]: Profile } = $state({});
-	#profile = $derived(this.#profiles[this.#activeProfile]);
 
 	constructor() {
 		// read from or set them in localstorage
@@ -74,21 +73,21 @@ class Store {
 		this.#activeProfile = v;
 	}
 	get profile() {
-		if (!this.#profile)
+		if (!this.profiles[this.#activeProfile])
 			throw new Error(
 				`Profile '${this.#activeProfile}' not found;\n${JSON.stringify(this.#profiles)}`
 			);
-		return this.#profile;
+		return this.profiles[this.#activeProfile];
 	}
 	set profile(v) {
-		if (!this.#profile)
+		if (!this.profiles[this.#activeProfile])
 			throw new Error(
 				`Profile '${this.#activeProfile}' not found;\n${JSON.stringify(this.#profiles)}`
 			);
-		this.profiles[this.activeProfile] = v;
 		this.profiles = {
 			// Trigger setter
-			...this.profiles
+			...this.profiles,
+			[this.activeProfile]: v
 		};
 	}
 	getWidget(id: string): Widget {
