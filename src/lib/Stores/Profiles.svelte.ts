@@ -31,14 +31,14 @@ export const Widgets: {
 	}
 };
 
-export const emptyProfile: Profile = {
+export const emptyProfile = (): Profile => ({
 	gridSize: {
 		rows: 0,
 		cols: 0,
-		boxSize: 0
+		boxSize: 50
 	},
 	widgets: {}
-}
+})
 
 class Store {
 	// Init vars
@@ -112,23 +112,25 @@ class Store {
 			...this.profile
 		};
 	}
-    createProfile(name: string) {
-        if (!name || Object.keys(this.profiles).includes(name)) throw Error("Invalid name.")
-		const gridSize = calcGridSize(innerWidth, innerHeight, emptyProfile.gridSize.boxSize);
-        this.profiles = {
-            ...this.profiles,
-            [name]: {
-                ...emptyProfile,
-                ...{
-                    gridSize
-                }
-            }
-        }
-    }
+	createProfile(name: string) {
+		if (!name || Object.keys(this.profiles).includes(name)) throw Error("Invalid name.")
+		const eProfile = emptyProfile();
+		const gridSize = calcGridSize(innerWidth, innerHeight, eProfile.gridSize.boxSize);
+		this.profiles = {
+			...this.profiles,
+			[name]: {
+				...eProfile,
+				...{
+					gridSize
+				},
+				widgets: {}
+			}
+		}
+	}
 	deleteProfile(name: string) {
-		if (!this.profiles[name]) throw new Error("Profile not found.")	
+		if (!this.profiles[name]) throw new Error("Profile not found.")
 
-		const {[name]: old, ...newProfiles} = this.profiles
+		const { [name]: old, ...newProfiles } = this.profiles
 		this.profiles = newProfiles
 	}
 }

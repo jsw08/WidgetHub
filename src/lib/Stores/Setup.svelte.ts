@@ -10,7 +10,7 @@ class Store {
 	// Seperate store for setup because i've split setup up in many seperate files
 	index: number = $state(0);
 	pages: Component<{}>[] = $state([Welcome, ProfileSetup, Screen, Finished]);
-	profile: Profile = $state(emptyProfile);
+	profile: Profile = $state(emptyProfile());
 	profileName: string = $state('');
 	#activeComp: Component = $derived(this.pages[this.index]);
 
