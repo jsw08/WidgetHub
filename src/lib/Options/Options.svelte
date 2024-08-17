@@ -33,10 +33,10 @@
 <dialog class="modal modal-bottom sm:modal-middle" open>
 	<div class="modal-box">
 		<h3 class="text-lg font-bold">Options</h3>
-    <svelte:component this={activeTab.component}/>
+		<svelte:component this={activeTab.component} />
 		<div class="divider mb-2"></div>
 		<div class="modal-action flex flex-row justify-between mt-0">
-			<div role="tablist" class="px-2 tabs tabs-boxed flex flex-row items-center">
+			<div role="tablist" class="px-2 tabs tabs-boxed flex flex-row items-center overflow-scroll min-w-0">
 				{#each tabs as tab}
 					<!-- svelte-ignore a11y_interactive_supports_focus -->
 					<!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -49,7 +49,9 @@
 					>
 				{/each}
 			</div>
-			<button class="btn join-item btn-primary" onclick={(_) => (options.open = false)}>Close</button>
+			<button class="btn join-item btn-primary" onclick={(_) => (options.open = false)}
+				>Close</button
+			>
 		</div>
 	</div>
 </dialog>
