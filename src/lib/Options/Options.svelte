@@ -36,7 +36,7 @@
 		<svelte:component this={activeTab.component} />
 		<div class="divider mb-2"></div>
 		<div class="modal-action flex flex-row justify-between mt-0">
-			<div role="tablist" class="px-2 tabs tabs-boxed flex flex-row items-center overflow-scroll min-w-0">
+			<div role="tablist" class="px-2 tabs tabs-boxed flex flex-row items-center overflow-x-auto min-w-0">
 				{#each tabs as tab}
 					<!-- svelte-ignore a11y_interactive_supports_focus -->
 					<!-- svelte-ignore a11y_click_events_have_key_events -->
