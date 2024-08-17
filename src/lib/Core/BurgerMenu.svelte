@@ -50,6 +50,7 @@
 				<span class="icon-[material-symbols--settings-rounded] w-[70%] h-[70%]"></span>
 			</button>
 		</li>
+		<div class="divider m-0"></div>
 		<li>
 			<button class="btn btn-square" onclick={(_) => (pickingWidget = true)}>
 				<!-- Widget add -->

@@ -21,9 +21,8 @@
 <dialog class="modal modal-bottom sm:modal-middle bg-base-100" {open}>
 	<div class="modal-box bg-error text-error-content">
 		<h3 class="text-lg font-bold">Invalid window size</h3>
-		<p class="py-4">
-			Resize the window to make it larger or press the reset button to reset your profiles or press
-			Resize to recalculate.
+		<p class="pt-4">
+			Please resize your window to continue. Alternatively, you can click the reset button to completely reset WidgetHub (nuclear). You also have the option to resize the boxsize; however, please note that this action <b>WILL</b> disrupt components, as it <b>does not</b> adjust widgets to meet their minimum size requirements.
 		</p>
 		<div class="modal-action">
 			<div class="join">
