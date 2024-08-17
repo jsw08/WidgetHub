@@ -116,8 +116,8 @@ class Store {
     createProfile(name: string) {
         if (!name || Object.keys(this.profiles).includes(name)) throw Error("Invalid name.")
 		const gridSize = calcGridSize(innerWidth, innerHeight, emptyProfile.gridSize.boxSize);
-        this.profile = {
-            ...this.profile,
+        this.profiles = {
+            ...this.profiles,
             [name]: {
                 ...emptyProfile,
                 ...{
