@@ -7,8 +7,8 @@
 	const createProfile = (e: SubmitEvent) => {
 		e.preventDefault();
 		if (profileNameConflicts) return;
-        console.log("ran")
         profiles.createProfile(newProfileName)
+        newProfileName = ""
 	};
 </script>
 
