@@ -31,6 +31,15 @@ export const Widgets: {
 	}
 };
 
+export const emptyProfile: Profile = {
+	gridSize: {
+		rows: 0,
+		cols: 0,
+		boxSize: 0
+	},
+	widgets: {}
+}
+
 class Store {
 	// Init vars
 	#activeProfile: string = $state('');

@@ -1,5 +1,5 @@
 import type { Component } from 'svelte';
-import { profiles, type Profile } from './Profiles.svelte';
+import { emptyProfile, profiles, type Profile } from './Profiles.svelte';
 
 import Welcome from '../Setup/Welcome.svelte';
 import { default as ProfileSetup } from '../Setup/Profile.svelte';
@@ -10,7 +10,7 @@ class Store {
 	// Seperate store for setup because i've split setup up in many seperate files
 	index: number = $state(0);
 	pages: Component<{}>[] = $state([Welcome, ProfileSetup, Screen, Finished]);
-	profile: Profile = $state({ gridSize: { rows: 0, cols: 0, boxSize: 100 }, widgets: {} });
+	profile: Profile = $state(emptyProfile);
 	profileName: string = $state('');
 	#activeComp: Component = $derived(this.pages[this.index]);
 
