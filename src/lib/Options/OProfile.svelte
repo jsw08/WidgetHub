@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { stopPropagation } from '../eventModifiers';
+	import ProfileEditor from '../Core/ProfileEditor.svelte';
+import { stopPropagation } from '../eventModifiers';
 	import { profiles } from '../Stores/Profiles.svelte';
 
 	let newProfileName = $state('');
@@ -60,3 +61,4 @@
 	</button>
 	<!-- TODO: replace 'submit' with icon but i'm offline rn -->
 </form>
+<ProfileEditor profileName="asdf"/>

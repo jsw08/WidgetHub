@@ -30,8 +30,8 @@
 	let activeTab: Tab = $state(tabs[0]);
 </script>
 
-<dialog class="modal modal-bottom sm:modal-middle" open>
-	<div class="modal-box">
+<dialog class="modal modal-bottom sm:modal-middle max-h-full" open>
+	<div class="modal-box max-h-full">
 		<h3 class="text-lg font-bold">Options</h3>
 		<svelte:component this={activeTab.component} />
 		<div class="divider mb-2"></div>

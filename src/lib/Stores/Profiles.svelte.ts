@@ -1,6 +1,7 @@
 import type { Component } from 'svelte';
 import { calcGridSize, type GridSize } from '../Core/gridSize';
 import Test from '../Widgets/Test.svelte';
+import { minBoxSize } from './Edit.svelte';
 
 export type Profile = {
 	gridSize: GridSize;
@@ -33,9 +34,9 @@ export const Widgets: {
 
 export const emptyProfile = (): Profile => ({
 	gridSize: {
-		rows: 0,
-		cols: 0,
-		boxSize: 50
+		rows: 1,
+		cols: 1,
+		boxSize: minBoxSize
 	},
 	widgets: {}
 })
