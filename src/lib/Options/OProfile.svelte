@@ -1,9 +1,32 @@
 <script lang="ts">
-	import { profiles } from '../Stores/Profiles.svelte';
+	import Grid from '../Core/Grid.svelte';
+	import { calcGridSize } from '../Core/gridSize';
+	import { emptyProfile, profiles } from '../Stores/Profiles.svelte';
+
+	let newProfileName = $state('');
+    let profileNameConflicts = $derived(!newProfileName || Object.keys(profiles.profiles).includes(newProfileName))
+	const createProfile = (e: SubmitEvent) => {
+		e.preventDefault();
+		if (profileNameConflicts) return;
+
+		e.type;
+		const gridSize = calcGridSize(innerWidth, innerHeight, emptyProfile.gridSize.boxSize);
+		const profile = {
+			...emptyProfile,
+			...{
+				gridSize
+			}
+		};
+		profiles.profiles = {
+			...profiles.profiles,
+			[newProfileName]: profile
+		};
+		alert(JSON.stringify(profile));
+	};
 </script>
 
 <div class="divider">Profiles</div>
-<ul class="menu bg-base-200 rounded-box w-full mt-4">
+<ul class="menu bg-base-200 rounded-box w-full mt-4 gap-2">
 	{#each Object.keys(profiles.profiles) as p}
 		<li>
 			<!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -32,7 +55,16 @@
 	{/each}
 </ul>
 <div class="divider">Add profile</div>
-<form class="mt-4">
-	<input type="text" placeholder="Enter a name here" class="input input-bordered w-full" />
-    <button type="submit" class="btn"></button>
+<form class="mt-4 flex flex-row gap-2" onsubmit={createProfile}>
+	<input
+		type="text"
+		name="name"
+		placeholder="Enter a name here"
+		bind:value={newProfileName}
+		class="input input-bordered flex-grow"
+	/>
+	<button type="submit" class="btn btn-primary btn-square" disabled={profileNameConflicts}>
+        <span class="">submit</span></button
+	>
+	<!-- TODO: replace 'submit' with icon but i'm offline rn -->
 </form>

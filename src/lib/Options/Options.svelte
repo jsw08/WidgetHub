@@ -27,7 +27,7 @@
 			active: true
 		}
 	];
-	let activeTab: Tab = tabs[0];
+	let activeTab: Tab = $state(tabs[0]);
 </script>
 
 <dialog class="modal modal-bottom sm:modal-middle" open>
