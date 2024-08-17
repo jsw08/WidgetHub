@@ -1,15 +1,13 @@
 <script lang="ts">
-	import Grid from '../Core/Grid.svelte';
-	import { calcGridSize } from '../Core/gridSize';
 	import { stopPropagation } from '../eventModifiers';
-	import Profile from '../Setup/Profile.svelte';
-	import { emptyProfile, profiles } from '../Stores/Profiles.svelte';
+	import { profiles } from '../Stores/Profiles.svelte';
 
 	let newProfileName = $state('');
     let profileNameConflicts = $derived(!newProfileName || Object.keys(profiles.profiles).includes(newProfileName))
 	const createProfile = (e: SubmitEvent) => {
 		e.preventDefault();
 		if (profileNameConflicts) return;
+        console.log("ran")
         profiles.createProfile(newProfileName)
 	};
 </script>

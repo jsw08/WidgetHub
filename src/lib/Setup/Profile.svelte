@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { setup } from '../Stores/Setup.svelte';
 	import Paginator from './Paginator.svelte';
+
+	let name = ""
 </script>
 
 <h3 class="text-lg font-bold">Profiles</h3>
@@ -9,9 +11,9 @@
 	enter a name for your first profile below.
 </p>
 
-<Paginator disabled={setup.profileName.length === 0}>
+<Paginator disabled={!name.length} next={() => setup.profileName = name}>
 	<input
-		bind:value={setup.profileName}
+		bind:value={name}
 		type="text"
 		placeholder="E.g: 'default'"
 		class="input input-bordered flex-grow min-w-0"
