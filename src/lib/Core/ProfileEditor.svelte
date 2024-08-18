@@ -5,7 +5,13 @@
 	import { emptyProfile, profiles } from '../Stores/Profiles.svelte';
 	import { calcBoxSize, calcGridSize, type GridSize } from './gridSize';
 
-	let { profileName } = $derived(options.editProfileModal);
+	type Props = {
+		optOpen?: boolean
+		optProfileName?: string
+	}
+	let {optOpen = $bindable(), optProfileName = $bindable()}: Props = $props()
+
+	let profileName = $derived(optProfileName ?? options.editProfileModal.profileName);
 	let profile = $derived(profiles.profiles[profileName]);
 
 	let rows: number | undefined = $state();
@@ -31,10 +37,11 @@
 				...rest,
 				[name]: cProfile
 			};
-			profiles.activeProfile = name;
+			if (profiles.activeProfile === profileName) profiles.activeProfile = name
 		}
 	};
 	const closeModal = () => {
+		if (optOpen) optOpen = false;
 		options.editProfileModal = {
 			open: false,
 			profileName: ''
