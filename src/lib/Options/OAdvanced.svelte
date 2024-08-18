@@ -22,7 +22,7 @@
 
 <div role="alert" class="alert alert-warning">
 	<span class="icon-[pajamas--warning] text-black w-5 h-5"></span>
-	<span>These functions <b>DO NOT</b> verify the json. For advanced users only.</span>
+	<span>These features <b>DO NOT</b> verify the json. For advanced users only.</span>
 </div>
 <div class="join w-full flex my-2">
 	<input
