@@ -6,10 +6,10 @@
 	import { calcBoxSize, calcGridSize, type GridSize } from './gridSize';
 
 	type Props = {
-		optOpen?: boolean
-		optProfileName?: string
-	}
-	let {optOpen = $bindable(), optProfileName = $bindable()}: Props = $props()
+		optOpen?: boolean;
+		optProfileName?: string;
+	};
+	let { optOpen = $bindable(), optProfileName = $bindable() }: Props = $props();
 
 	let profileName = $derived(optProfileName ?? options.editProfileModal.profileName);
 	let profile = $derived(profiles.profiles[profileName]);
@@ -37,7 +37,7 @@
 				...rest,
 				[name]: cProfile
 			};
-			if (profiles.activeProfile === profileName) profiles.activeProfile = name
+			if (profiles.activeProfile === profileName) profiles.activeProfile = name;
 		}
 	};
 	const closeModal = () => {
@@ -68,11 +68,9 @@
 				<div role="alert" class="alert alert-warning">
 					<span class="icon-[pajamas--warning] text-black w-5 h-5"></span>
 					<span
-						>Changing the grid size to a different value <b>WILL</b> break your layout. It's better
-						to create a profile from scratch, resize the boxSize or to auto-resize (<span
-							class="icon-[mdi--automatic] align-middle"
-						></span>).</span
-					>
+						>Changing the grid size to a different value <b>WILL</b> break your layout. It's better to
+						create a profile from scratch or resize the boxSize.
+					</span>
 				</div>
 			{/if}
 			<div class="join flex flex-row w-full my-2">
@@ -93,11 +91,16 @@
 					class="input input-bordered min-w-0"
 					class:join-item={true}
 				/>
-				<button class="btn btn-square btn-primary join-item flex-none"
+				<button
+					class="btn btn-square btn-primary join-item flex-none"
 					onclick={() => {
-						const gSize = calcGridSize(innerWidth, innerHeight, boxSize ?? profile.gridSize.boxSize)
+						const gSize = calcGridSize(
+							innerWidth,
+							innerHeight,
+							boxSize ?? profile.gridSize.boxSize
+						);
 						rows = gSize.rows;
-						cols = gSize.cols
+						cols = gSize.cols;
 					}}><span class="icon-[mdi--automatic] w-[55%] h-[55%]"></span></button
 				>
 			</div>
