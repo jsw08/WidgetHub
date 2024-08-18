@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { fly } from 'svelte/transition';
 	import { minBoxSize } from '../Stores/Edit.svelte';
 	import { options } from '../Stores/Options.svelte';
-	import { emptyProfile, profiles } from '../Stores/Profiles.svelte';
+	import { profiles } from '../Stores/Profiles.svelte';
 	import { calcBoxSize, calcGridSize, type GridSize } from './gridSize';
 
 	type Props = {
@@ -142,7 +141,9 @@
 	<dialog class="modal modal-bottom sm:modal-middle" open>
 		<div class="modal-box">
 			<h3 class="text-lg font-bold">Profile not found...</h3>
-			<div class="modal-action flex flex-row"></div>
+			<div class="modal-action flex flex-row">
+				<button class="btn btn-primary" onclick={closeModal}>Close</button>
+			</div>
 		</div>
 	</dialog>
 {/if}
