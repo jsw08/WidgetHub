@@ -4,6 +4,7 @@
 	import OProfile from './OProfile.svelte';
 	import type { Component } from 'svelte';
 	import { options } from '../Stores/Options.svelte';
+	import ProfileEditor from '../Core/ProfileEditor.svelte';
 
 	type Tab = {
 		component: Component<{}>;
@@ -30,8 +31,8 @@
 	let activeTab: Tab = $state(tabs[0]);
 </script>
 
-<dialog class="modal modal-bottom sm:modal-middle max-h-full" open>
-	<div class="modal-box max-h-full">
+<dialog class="modal modal-bottom sm:modal-middle" open>
+	<div class="modal-box">
 		<h3 class="text-lg font-bold">Options</h3>
 		<svelte:component this={activeTab.component} />
 		<div class="divider mb-2"></div>
@@ -55,3 +56,6 @@
 		</div>
 	</div>
 </dialog>
+{#if options.editProfileModal.open}
+	<ProfileEditor/>
+{/if}

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import ProfileEditor from '../Core/ProfileEditor.svelte';
-import { stopPropagation } from '../eventModifiers';
+	import { stopPropagation } from '../eventModifiers';
+	import { options } from '../Stores/Options.svelte';
 	import { profiles } from '../Stores/Profiles.svelte';
 
 	let newProfileName = $state('');
@@ -30,7 +30,10 @@ import { stopPropagation } from '../eventModifiers';
 				<span class="flex-grow">{p}</span>
 				<div class="divider divider-horizontal m-0"></div>
 				<div class="flex-none join">
-					<button class="btn btn-xs btn-square btn-info join-item">
+					<button class="btn btn-xs btn-square btn-info join-item" onclick={() => options.editProfileModal = {
+						open: true,
+						profileName: p
+					}}>
 						<span class="icon-[mdi--rename-box] w-[80%] h-[80%]"></span>
 					</button>
 					<button
@@ -61,4 +64,3 @@ import { stopPropagation } from '../eventModifiers';
 	</button>
 	<!-- TODO: replace 'submit' with icon but i'm offline rn -->
 </form>
-<ProfileEditor profileName="asdf"/>
