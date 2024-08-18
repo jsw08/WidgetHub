@@ -1,15 +1,17 @@
 <script lang="ts">
 	let getInput: string | undefined = $state();
 	let setInput: string | undefined = $state();
-	const get = () => {
+
+	$effect(() => {
 		getInput = JSON.stringify({ ...localStorage });
-	};
+		void 0;
+	});
 	const set = () => {
 		if (!setInput) return;
 
 		const parsedInput = JSON.parse(setInput); // isn't recursive, so we don't have to stringify twice
-        console.log(parsedInput)
-        debugger
+		console.log(parsedInput);
+		debugger;
 		for (let i of Object.keys(parsedInput)) {
 			localStorage[i] = parsedInput[i];
 		}
@@ -29,7 +31,12 @@
 		type="text"
 		class="input input-bordered flex-grow join-item"
 		bind:value={getInput}
-	/><button class="btn btn-primary btn-square flex-none join-item" onclick={get}>get</button>
+	/><button
+		class="btn btn-primary btn-square flex-none join-item"
+		disabled={location.protocol !== 'https:'}
+		title={location.protocol === 'https:' ? '' : 'Copy-to-clipboard is only supported on https.'}
+		><span class="icon-[material-symbols--content-copy] w-[55%] h-[55%]"></span></button
+	>
 </div>
 <div class="join w-full flex">
 	<input
