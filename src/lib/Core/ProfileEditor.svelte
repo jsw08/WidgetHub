@@ -3,7 +3,7 @@
 	import { minBoxSize } from '../Stores/Edit.svelte';
 	import { options } from '../Stores/Options.svelte';
 	import { emptyProfile, profiles } from '../Stores/Profiles.svelte';
-	import type { GridSize } from './gridSize';
+	import { calcBoxSize, calcGridSize, type GridSize } from './gridSize';
 
 	let { profileName } = $derived(options.editProfileModal);
 	let profile = $derived(profiles.profiles[profileName]);
@@ -61,7 +61,10 @@
 				<div role="alert" class="alert alert-warning">
 					<span class="icon-[pajamas--warning] text-black w-5 h-5"></span>
 					<span
-						>Changing the grid size to a different value <b>WILL</b> break your layout. It's better to create a profile from scratch, resize the boxSize or to auto-resize (<span class="icon-[mdi--automatic] align-middle"></span>).</span
+						>Changing the grid size to a different value <b>WILL</b> break your layout. It's better
+						to create a profile from scratch, resize the boxSize or to auto-resize (<span
+							class="icon-[mdi--automatic] align-middle"
+						></span>).</span
 					>
 				</div>
 			{/if}
@@ -83,7 +86,13 @@
 					class="input input-bordered min-w-0"
 					class:join-item={true}
 				/>
-				<button class="btn btn-square btn-primary join-item flex-none"><span class="icon-[mdi--automatic] w-[55%] h-[55%]"></span></button>
+				<button class="btn btn-square btn-primary join-item flex-none"
+					onclick={() => {
+						const gSize = calcGridSize(innerWidth, innerHeight, boxSize ?? profile.gridSize.boxSize)
+						rows = gSize.rows;
+						cols = gSize.cols
+					}}><span class="icon-[mdi--automatic] w-[55%] h-[55%]"></span></button
+				>
 			</div>
 			<div class="join flex flex-row w-full mb-2">
 				<input
@@ -93,7 +102,16 @@
 					min={minBoxSize}
 					class="input input-bordered w-full join-item"
 				/>
-				<button class="btn btn-square btn-primary join-item flex-none"><span class="icon-[mdi--automatic] w-[55%] h-[55%]"></span></button>
+				<button
+					class="btn btn-square btn-primary join-item flex-none"
+					onclick={() =>
+						(boxSize = calcBoxSize(
+							innerWidth,
+							innerHeight,
+							rows ?? profile.gridSize.rows,
+							cols ?? profile.gridSize.cols
+						))}><span class="icon-[mdi--automatic] w-[55%] h-[55%]"></span></button
+				>
 			</div>
 
 			<div class="divider mb-0"></div>
