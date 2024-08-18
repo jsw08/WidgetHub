@@ -11,7 +11,13 @@
 		e.preventDefault();
 		if (profileNameConflicts) return;
 		profiles.createProfile(newProfileName);
+
+		options.editProfileModal = {
+			open: true,
+			profileName: newProfileName
+		}
 		newProfileName = '';
+
 	};
 </script>
 
