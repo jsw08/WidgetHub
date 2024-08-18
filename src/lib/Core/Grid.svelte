@@ -24,8 +24,7 @@
 	<!-- svelte-ignore a11y_click_events_have_key_events -->
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div
-		style="grid-area: center;"
-		class="grid rounded-md w-fit h-fit"
+		class="grid rounded-md w-fit h-fit col-span-full row-span-full"
 		class:z-20={edit.dragging && gridUnderlay}
 		class:z-[-1]={!edit.dragging && gridUnderlay}
 		class:border-2={edit.edit}
