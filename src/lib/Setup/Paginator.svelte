@@ -6,9 +6,9 @@
 	type Props = {
 		children?: Snippet;
 		disabled?: boolean;
-		next?: () => any;
+		onnext?: () => any;
 	};
-	let { children, disabled, next }: Props = $props();
+	let { children, disabled, onnext }: Props = $props();
 </script>
 
 <div class="divider mb-0"></div>
@@ -16,7 +16,7 @@
 	class="modal-action flex flex-row items-center mt-1"
 	onsubmit={(e) => {
 		e.preventDefault();
-		next?.();
+		onnext?.();
 		if (finalPage) setup.finish();
 		else setup.index++;
 	}}

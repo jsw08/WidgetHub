@@ -1,7 +1,7 @@
 <script lang="ts">
 	import BurgerMenu from './lib/Core/BurgerMenu.svelte';
 	import Grid from './lib/Core/Grid.svelte';
-	import Options from './lib/Core/Options.svelte';
+	import Options from './lib/Options/Options.svelte';
 	import ScreensizeWarning from './lib/Core/ScreensizeWarning.svelte';
 	import Setup from './lib/Setup/Setup.svelte';
 	import WidgetWrapper from './lib/Core/WidgetWrapper.svelte';

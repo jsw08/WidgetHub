@@ -3,7 +3,7 @@
 	import { edit } from '../Stores/Edit.svelte';
 	import { options } from '../Stores/Options.svelte';
 
-	let hide = false;
+	let hide = $state(false);
 	let clicked = false;
 	const doubleClick = () => {
 		if (clicked) {
@@ -17,7 +17,7 @@
 		clicked = true;
 		setTimeout(() => (clicked = false), 300);
 	};
-	let pickingWidget = false;
+	let pickingWidget = $state(false);
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->

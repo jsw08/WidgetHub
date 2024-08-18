@@ -38,12 +38,14 @@
 					<!-- svelte-ignore a11y_no_static_element_interactions -->
 					<!-- svelte-ignore a11y_mouse_events_have_key_events -->
 					<span
-						class="w-full h-full border-[1px] border-dashed opacity-20 {edit.dragging &&
+						class="w-full h-full border-[1px] border-dashed opacity-20 {edit.dragging && // this shouldn't work but it does and it prevents edit.isPlaceable from being ran twice so i'll take it.
 						edit.dragMode === 'place'
 							? edit.isPlaceable(x, y)
 								? 'bg-success'
 								: 'bg-error'
 							: ''}"
+						class:cursor-grabbing={edit.dragging && edit.dragMode !== "place"}
+						class:cursor-pointer={edit.dragging && edit.dragMode === "place"}
 						onmouseover={(_) => mouseOverHandler(x, y)}
 						onclick={(_) => clickHandler(x, y)}
 					></span>

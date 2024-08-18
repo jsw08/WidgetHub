@@ -46,7 +46,7 @@
 	>
 </div>
 
-<Paginator next={() => (setup.profile.gridSize = getGrid())} disabled={boxSize < minBoxSize}>
+<Paginator onnext={() => (setup.profile.gridSize = getGrid())} disabled={boxSize < minBoxSize}>
 	<input type="range" min={minBoxSize} max="200" class="range" bind:value={boxSize} {oninput} />
 	<div class="flex flex-col justify-center items-left text-xs font-mono flex-none">
 		<span>box : {gridSize.boxSize}</span>
