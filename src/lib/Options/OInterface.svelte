@@ -14,8 +14,7 @@
 <label class="form-control w-full mb-2">
 	<div class="label">
 		<span class="label-text"
-			>Body style (paste your css here like this: '<code>color:black;background:green;</code
-			>')</span
+			>Body style in inline css (leave empty to default)</span
 		>
 	</div>
 	<input

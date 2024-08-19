@@ -1,4 +1,4 @@
-import { defaultCSS } from "./defaultCSS";
+import { defaultCSS } from "../Core/defaultCSS";
 
 class Store {
     open = $state(false)
@@ -9,7 +9,7 @@ class Store {
         open: false,
         profileName: "" 
     })
-    #bodyCSS = $state(defaultCSS);
+    #bodyCSS = $state("");
 
     constructor() {
         if (localStorage.bodyCSS) this.#bodyCSS = localStorage.bodyCSS;
