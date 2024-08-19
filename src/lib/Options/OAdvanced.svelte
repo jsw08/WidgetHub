@@ -35,6 +35,7 @@
 		class="btn btn-primary btn-square flex-none join-item"
 		disabled={location.protocol !== 'https:'}
 		title={location.protocol === 'https:' ? '' : 'Copy-to-clipboard is only supported on https.'}
+		onclick={() => navigator.clipboard.writeText(getInput ?? "")}
 		><span class="icon-[material-symbols--content-copy] w-[55%] h-[55%]"></span></button
 	>
 </div>
@@ -43,5 +44,7 @@
 		type="text"
 		class="input input-bordered flex-grow join-item"
 		bind:value={setInput}
-	/><button class="btn btn-primary btn-square flex-none join-item" onclick={set}>set</button>
+	/><button class="btn btn-primary btn-square flex-none join-item" onclick={set}
+		><span class="icon-[material-symbols--save] w-[55%] h-[55%]"></span></button
+	>
 </div>
