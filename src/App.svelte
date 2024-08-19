@@ -8,12 +8,17 @@
 	import { edit } from './lib/Stores/Edit.svelte';
 	import { options } from './lib/Stores/Options.svelte';
 	import { profiles, type Widget, Widgets } from './lib/Stores/Profiles.svelte';
+    import {themeChange} from 'theme-change'
 
 	let widgets: Widget[] = $derived(Object.values(profiles.profile.widgets));
 	let widgetsIDS: string[] = $derived(Object.keys(profiles.profile.widgets));
+	
+	$effect(() => {document.body.style.cssText = options.bodyCSS})
+	$effect(() => themeChange(false))
 </script>
-
 <svelte:window onmouseup={(_) => (edit.dragMode !== 'place' ? edit.stopDrag() : void 0)} />
+<!-- <button data-toggle-theme="dark,light" class="hidden"></button>  -->
+
 {#if profiles.isSetup}
 	<Grid>
 		{#each widgets as widget, i}
