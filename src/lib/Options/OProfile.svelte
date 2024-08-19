@@ -3,14 +3,20 @@
 	import { options } from '../Stores/Options.svelte';
 	import { profiles } from '../Stores/Profiles.svelte';
 
+	let profileNameInput: HTMLInputElement | undefined = $state()
 	let newProfileName = $state('');
 	let profileNameConflicts = $derived(
 		!newProfileName || Object.keys(profiles.profiles).includes(newProfileName)
 	);
 	const createProfile = (e: SubmitEvent) => {
 		e.preventDefault();
-		if (profileNameConflicts) return;
+		if (profileNameConflicts || options.editProfileModal.open) return;
+
 		profiles.createProfile(newProfileName);
+		options.editProfileModal = {
+			open: true,
+			profileName: newProfileName
+		}
 		newProfileName = '';
 	};
 </script>
@@ -56,11 +62,11 @@
 		type="text"
 		name="name"
 		placeholder="Enter a name here"
-		bind:value={newProfileName}
 		class="input input-bordered flex-grow"
+		bind:value={newProfileName}
+		bind:this={profileNameInput}
 	/>
 	<button type="submit" class="btn btn-primary btn-square" disabled={profileNameConflicts}>
 		<span class="icon-[material-symbols--note-add] w-[65%] h-[65%]"></span>
 	</button>
-	<!-- TODO: replace 'submit' with icon but i'm offline rn -->
 </form>
