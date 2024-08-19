@@ -10,7 +10,7 @@
 	);
 	const createProfile = (e: SubmitEvent) => {
 		e.preventDefault();
-		if (profileNameConflicts || !options.editProfileModal.open) return;
+		if (profileNameConflicts || options.editProfileModal.open) return;
 
 		profiles.createProfile(newProfileName);
 		options.editProfileModal = {
