@@ -15,9 +15,11 @@
 		if (edit.dragMode === 'resize') edit.resizeWidget({ x, y });
 	};
 	const clickHandler = (x: number, y: number) =>
-		edit.dragging && edit.dragMode === 'place' && edit.isPlaceable(x, y)
+		edit.dragging && edit.dragMode === 'place' ? edit.isPlaceable(x, y)
 			? edit.placeWidget(x, y)
-			: void 0;
+			: edit.stopDrag()
+		: void 0
+		
 </script>
 
 {#snippet GridComp(gridUnderlay: boolean)}
@@ -26,7 +28,8 @@
 	<div
 		class="grid rounded-md w-fit h-fit col-span-full row-span-full"
 		class:z-20={edit.dragging && gridUnderlay}
-		class:z-[-1]={!edit.dragging && gridUnderlay}
+		class:z-[1]={!edit.dragging && gridUnderlay}
+		class:z-[2]={!gridUnderlay} 
 		class:border-2={edit.edit}
 		style:grid-template-rows={`repeat(${rows}, minmax(0, ${boxSize}px))`}
 		style:grid-template-columns={`repeat(${cols}, minmax(0, ${boxSize}px))`}
@@ -38,7 +41,7 @@
 					<!-- svelte-ignore a11y_no_static_element_interactions -->
 					<!-- svelte-ignore a11y_mouse_events_have_key_events -->
 					<span
-						class="w-full h-full border-[1px] border-dashed opacity-20 {edit.dragging && // this shouldn't work but it does and it prevents edit.isPlaceable from being ran twice so i'll take it.
+						class="w-full h-full border-[1px] border-neutral-content border-dashed opacity-20 {edit.dragging && // this shouldn't work but it does and it prevents edit.isPlaceable from being ran twice so i'll take it.
 						edit.dragMode === 'place'
 							? edit.isPlaceable(x, y)
 								? 'bg-success'

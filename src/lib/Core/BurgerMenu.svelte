@@ -23,7 +23,7 @@
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <!-- svelte-ignore a11y_mouse_events_have_key_events -->
 <div
-	class="dropdown dropdown-top dropdown-end absolute right-0 bottom-0 m-2 {!hide || edit.edit
+	class="dropdown dropdown-top dropdown-end absolute right-0 bottom-0 m-2 z-[3] {!hide || edit.edit
 		? 'opacity-100'
 		: 'opacity-0 hover:opacity-100'}"
 	onload={(_) => {

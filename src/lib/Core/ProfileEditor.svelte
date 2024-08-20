@@ -21,6 +21,24 @@
 		name !== profileName && Object.keys(profiles.profiles).includes(name ?? '')
 	);
 
+	const autoGrid = () => {
+		const gSize = calcGridSize(innerWidth, innerHeight, boxSize ?? profile.gridSize.boxSize);
+		rows = gSize.rows;
+		cols = gSize.cols;
+	};
+	const autoBox = () => {
+		boxSize = calcBoxSize(
+			innerWidth,
+			innerHeight,
+			rows ?? profile.gridSize.rows,
+			cols ?? profile.gridSize.cols
+		);
+		if (boxSize < 40) {
+			boxSize = 40;
+			autoGrid();
+		}
+	};
+
 	const updateProfile = () => {
 		if (boxSize || cols || rows) {
 			const newGridSize: GridSize = {
@@ -62,7 +80,7 @@
 				class:input-error={profileNameConflicts}
 			/>
 
-			<div class="divider">Grid settings</div>
+			<div class="divider">Grid settings - ADVANCED</div>
 			{#if rows || cols}
 				<div role="alert" class="alert alert-warning">
 					<span class="icon-[pajamas--warning] text-black w-5 h-5"></span>
@@ -74,52 +92,39 @@
 			{/if}
 			<div class="join flex flex-row w-full my-2">
 				<input
-					type="number"
-					placeholder="Rows: {profile.gridSize.rows}"
 					bind:value={rows}
-					min="1"
-					class="input input-bordered min-w-0"
 					class:join-item={true}
+					class="input input-bordered min-w-0"
+					min="1"
+					oninput={autoBox}
+					placeholder="Rows: {profile.gridSize.rows}"
+					type="number"
 				/>
 				<!-- <span class="text-2xl">×</span> -->
 				<input
-					type="number"
-					placeholder="Columns: {profile.gridSize.cols}"
 					bind:value={cols}
-					min="1"
-					class="input input-bordered min-w-0"
 					class:join-item={true}
+					class="input input-bordered min-w-0"
+					min="1"
+					oninput={autoBox}
+					placeholder="Columns: {profile.gridSize.cols}"
+					type="number"
 				/>
-				<button
-					class="btn btn-square btn-primary join-item flex-none"
-					onclick={() => {
-						const gSize = calcGridSize(
-							innerWidth,
-							innerHeight,
-							boxSize ?? profile.gridSize.boxSize
-						);
-						rows = gSize.rows;
-						cols = gSize.cols;
-					}}><span class="icon-[mdi--automatic] w-[55%] h-[55%]"></span></button
+				<button class="btn btn-square btn-primary join-item flex-none" onclick={autoGrid}
+					><span class="icon-[mdi--automatic] w-[55%] h-[55%]"></span></button
 				>
 			</div>
 			<div class="join flex flex-row w-full mb-2">
 				<input
-					type="number"
-					placeholder="BoxSize: {profile.gridSize.boxSize}"
 					bind:value={boxSize}
-					min={minBoxSize}
 					class="input input-bordered w-full join-item"
+					min={minBoxSize}
+					oninput={autoGrid}
+					placeholder="BoxSize: {profile.gridSize.boxSize}"
+					type="number"
 				/>
-				<button
-					class="btn btn-square btn-primary join-item flex-none"
-					onclick={() =>
-						(boxSize = calcBoxSize(
-							innerWidth,
-							innerHeight,
-							rows ?? profile.gridSize.rows,
-							cols ?? profile.gridSize.cols
-						))}><span class="icon-[mdi--automatic] w-[55%] h-[55%]"></span></button
+				<button class="btn btn-square btn-primary join-item flex-none" onclick={autoBox}
+					><span class="icon-[mdi--automatic] w-[55%] h-[55%]"></span></button
 				>
 			</div>
 
