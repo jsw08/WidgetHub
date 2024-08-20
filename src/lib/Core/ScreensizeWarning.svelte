@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { profiles } from '../Stores/Profiles.svelte';
-	import { calcBoxSize } from './gridSize';
 	import ProfileEditor from './ProfileEditor.svelte';
 
 	let open = $state(false);
@@ -12,9 +11,8 @@
 	let editing = $state(false);
 
 	const checkSize = () => {
-		let condition = innerWidth < gridSizePx.x || innerHeight < gridSizePx.y;
-		if (!condition) editing = false;
-		open = condition;
+		open = innerWidth < gridSizePx.x || innerHeight < gridSizePx.y;
+		if (!open) editing = false;
 	};
 	$effect(() => {
 		window.onresize = checkSize;
@@ -25,20 +23,10 @@
 		localStorage.clear();
 		location.reload();
 	};
-	// const resize = () => {
-	// 	profiles.profile.gridSize.boxSize = calcBoxSize(
-	// 		innerWidth,
-	// 		innerHeight,
-	// 		gridSize.rows,
-	// 		gridSize.cols
-	// 	);
-	// 	profiles.profile = { ...profiles.profile };
-	// };
-	$effect(() => console.log(open));
 </script>
 
 {#if open}
-	<dialog class="modal modal-bottom sm:modal-middle bg-base-100">
+	<dialog class="modal modal-bottom sm:modal-middle bg-base-100" {open}>
 		<div class="modal-box bg-error text-error-content">
 			<h3 class="text-lg font-bold">Invalid window size</h3>
 			<p class="pt-4">
