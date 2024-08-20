@@ -1,4 +1,5 @@
-import { profiles, Widgets, type Widget } from './Profiles.svelte';
+import { profiles, Widgets } from './Profiles.svelte';
+import {type Widget} from "./WidgetProps"
 
 export type MouseCoords = {
 	x: number;

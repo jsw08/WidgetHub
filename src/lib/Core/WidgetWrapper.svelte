@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { type Widget } from '../Stores/Profiles.svelte';
+	import { type Widget } from '../Stores/WidgetProps';
 	import { edit } from '../Stores/Edit.svelte';
 	import { stopPropagation } from '../eventModifiers';
 

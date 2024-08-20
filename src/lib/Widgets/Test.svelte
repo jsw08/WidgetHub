@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { edit } from '../Stores/Edit.svelte';
-	import { type WidgetProps } from '../Stores/Profiles.svelte';
+	import type { WidgetProps } from '../Stores/WidgetProps';
 
 	let { widget, id }: WidgetProps = $props();
 </script>
