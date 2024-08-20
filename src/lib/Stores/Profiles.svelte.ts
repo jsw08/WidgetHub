@@ -2,6 +2,7 @@ import type { Component } from 'svelte';
 import { calcGridSize, type GridSize } from '../Core/gridSize';
 import Test from '../Widgets/Test.svelte';
 import { minBoxSize } from './Edit.svelte';
+import Time from '../Widgets/Time.svelte';
 
 export type Profile = {
 	gridSize: GridSize;
@@ -25,6 +26,13 @@ export const Widgets: {
 } = {
 	Test: {
 		component: Test,
+		size: {
+			minWidth: 2,
+			minHeight: 2
+		}
+	},
+	Time: {
+		component: Time,
 		size: {
 			minWidth: 2,
 			minHeight: 2

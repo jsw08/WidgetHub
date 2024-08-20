@@ -82,36 +82,29 @@ class Store {
 	}
 	resizeWidget(loc: MouseCoords) {
 		if (!this.dragging || this.dragMode !== 'resize' || !this.focus) return;
-		const size = this.focus.widget.size;
+		const size: Widget["size"] = this.focus.widget.size;
 		if (loc.x < size.x || loc.y < size.y) return;
 
 		const minSize = Widgets[this.focus.widget.component].size;
 		const boxSize = profiles.profile.gridSize.boxSize;
-		let newSize: { width: number; height: number } = {
+		let calcSize: { width: number; height: number } = {
 			height: loc.y - size.y + 1,
 			width: loc.x - size.x + 1
 		};
-		newSize = {
-			height:
-				newSize.height * boxSize >= minSize.minHeight * minBoxSize
-					? newSize.height
-					: minSize.minHeight,
-			width:
-				newSize.width * boxSize >= minSize.minWidth * minBoxSize ? newSize.width : minSize.minWidth
-		};
+		if (calcSize.width * boxSize < minSize.minWidth * minBoxSize) calcSize.width = minSize.minWidth * minBoxSize 
+		if (calcSize.height * boxSize < minSize.minHeight * minBoxSize) calcSize.height = minSize.minHeight * minBoxSize 
 
-		if (
-			!this.#checkPos(this.focus.id, {
-				...size,
-				...newSize
-			})
-		)
-			return;
-
-		this.focus.widget.size = {
+		const newSize: Widget["size"]  = {
 			...size,
-			...newSize
-		};
+			...calcSize
+		}
+		if (!this.#checkPos(this.focus.id, newSize))return;
+
+		this.focus.widget.size = newSize;
+		profiles.setWidget(this.focus.id, v => ({
+			...v,
+			size: newSize
+		}))
 	}
 	placeWidget(x: number, y: number) {
 		if (!this.dragging || this.dragMode !== 'place' || !this.focus) return;

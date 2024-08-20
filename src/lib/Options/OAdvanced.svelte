@@ -10,8 +10,6 @@
 		if (!setInput) return;
 
 		const parsedInput = JSON.parse(setInput); // isn't recursive, so we don't have to stringify twice
-		console.log(parsedInput);
-		debugger;
 		for (let i of Object.keys(parsedInput)) {
 			localStorage[i] = parsedInput[i];
 		}
