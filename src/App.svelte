@@ -7,7 +7,8 @@
 	import WidgetWrapper from './lib/Core/WidgetWrapper.svelte';
 	import { edit } from './lib/Stores/Edit.svelte';
 	import { options } from './lib/Stores/Options.svelte';
-	import { profiles, type Widget, Widgets } from './lib/Stores/Profiles.svelte';
+	import { profiles, Widgets } from './lib/Stores/Profiles.svelte';
+	import { type Widget } from './lib/Stores/WidgetProps';
 
 	let widgets: Widget[] = $derived(Object.values(profiles.profile.widgets));
 	let widgetsIDS: string[] = $derived(Object.keys(profiles.profile.widgets));

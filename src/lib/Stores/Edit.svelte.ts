@@ -1,4 +1,5 @@
-import { profiles, Widgets, type Widget } from './Profiles.svelte';
+import { profiles, Widgets } from './Profiles.svelte';
+import { type Widget } from './WidgetProps';
 
 export type MouseCoords = {
 	x: number;
@@ -25,8 +26,8 @@ class Store {
 		return this.#dragMode;
 	}
 	startDrag(dragMode: 'place', widget: string): void;
-	startDrag(dragMode: dragMode, widget: Widget, id: string, offset: number): void;
-	startDrag(dragMode: dragMode, widget: Widget | string, id?: string, offset?: number): void {
+	startDrag(dragMode: dragMode, widget: Widget, id: string): void;
+	startDrag(dragMode: dragMode, widget: Widget | string, id?: string): void {
 		if (dragMode === 'place') {
 			if (typeof widget !== 'string') return;
 			const boxSize = profiles.profile.gridSize.boxSize;
@@ -44,10 +45,10 @@ class Store {
 			};
 			this.#updateWidgetAreas();
 		} else {
-			if (!id || offset === undefined || typeof widget === 'string')
+			if (!id || typeof widget === 'string')
 				throw new Error('Missing parameters.');
 			this.focus = { id, widget };
-			this.mouseCoordsOffset = offset;
+			this.mouseCoordsOffset = 0
 		}
 
 		this.#dragging = true;
@@ -67,11 +68,12 @@ class Store {
 	}
 	moveWidget(loc: MouseCoords) {
 		if (!this.dragging || this.dragMode !== 'move' || !this.focus) return;
+		const size = this.focus.widget.size;
 
 		const newSize = {
-			...this.focus.widget.size,
-			x: loc.x - this.mouseCoordsOffset,
-			y: loc.y
+			...size,
+			x: loc.x - Math.round(size.width / 2) - 1,
+			y: loc.y - Math.round(size.width / 2) - 1
 		};
 		if (!this.#checkPos(this.focus.id, newSize)) return;
 
@@ -82,36 +84,31 @@ class Store {
 	}
 	resizeWidget(loc: MouseCoords) {
 		if (!this.dragging || this.dragMode !== 'resize' || !this.focus) return;
-		const size = this.focus.widget.size;
+		const size: Widget['size'] = this.focus.widget.size;
 		if (loc.x < size.x || loc.y < size.y) return;
 
 		const minSize = Widgets[this.focus.widget.component].size;
 		const boxSize = profiles.profile.gridSize.boxSize;
-		let newSize: { width: number; height: number } = {
+		let calcSize: { width: number; height: number } = {
 			height: loc.y - size.y + 1,
 			width: loc.x - size.x + 1
 		};
-		newSize = {
-			height:
-				newSize.height * boxSize >= minSize.minHeight * minBoxSize
-					? newSize.height
-					: minSize.minHeight,
-			width:
-				newSize.width * boxSize >= minSize.minWidth * minBoxSize ? newSize.width : minSize.minWidth
-		};
+		if (calcSize.width * boxSize < minSize.minWidth * minBoxSize)
+			calcSize.width = minSize.minWidth * minBoxSize;
+		if (calcSize.height * boxSize < minSize.minHeight * minBoxSize)
+			calcSize.height = minSize.minHeight * minBoxSize;
 
-		if (
-			!this.#checkPos(this.focus.id, {
-				...size,
-				...newSize
-			})
-		)
-			return;
-
-		this.focus.widget.size = {
+		const newSize: Widget['size'] = {
 			...size,
-			...newSize
+			...calcSize
 		};
+		if (!this.#checkPos(this.focus.id, newSize)) return;
+
+		this.focus.widget.size = newSize;
+		profiles.setWidget(this.focus.id, (v) => ({
+			...v,
+			size: newSize
+		}));
 	}
 	placeWidget(x: number, y: number) {
 		if (!this.dragging || this.dragMode !== 'place' || !this.focus) return;
@@ -155,7 +152,12 @@ class Store {
 	}
 	#checkPos(id: string, newSize: Widget['size']): boolean {
 		const gridSize = profiles.profile.gridSize;
-		if (newSize.y + newSize.height > gridSize.rows || newSize.x + newSize.width > gridSize.cols)
+		if (
+			newSize.y + newSize.height > gridSize.rows ||
+			newSize.x + newSize.width > gridSize.cols ||
+			newSize.x < 0 ||
+			newSize.y < 0
+		)
 			return false;
 
 		let newWidgets: typeof profiles.profile.widgets = {
@@ -165,8 +167,8 @@ class Store {
 				size: newSize
 			}
 		};
-		let widgetAreas = this.#getWidgetAreas(newWidgets);
 
+		let widgetAreas = this.#getWidgetAreas(newWidgets);
 		const isMovable = !hasDuplicates(widgetAreas);
 		if (!isMovable) this.#updateWidgetAreas(widgetAreas);
 		// only update widgetAreas if it's calculated anyway or when it's needed.

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { type Widget } from '../Stores/Profiles.svelte';
+	import { type Widget } from '../Stores/WidgetProps';
 	import { edit } from '../Stores/Edit.svelte';
 	import { stopPropagation } from '../eventModifiers';
 
@@ -13,7 +13,7 @@
 
 	let { x, y, width, height } = $derived(widget.size);
 	const startDrag = (mode: 'move' | 'resize') =>
-		edit.startDrag(mode, widget, id, Math.round(width / 2) - 1);
+		edit.startDrag(mode, widget, id, );
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->

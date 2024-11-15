@@ -2,6 +2,8 @@ import type { Component } from 'svelte';
 import { calcGridSize, type GridSize } from '../Core/gridSize';
 import Test from '../Widgets/Test.svelte';
 import { minBoxSize } from './Edit.svelte';
+import Time from '../Widgets/Time.svelte';
+import type { Widget, WidgetProps } from './WidgetProps';
 
 export type Profile = {
 	gridSize: GridSize;
@@ -9,22 +11,18 @@ export type Profile = {
 		[x: string]: Widget;
 	};
 };
-export type Widget = {
-	component: string;
-	size: {
-		width: number;
-		height: number;
-		x: number;
-		y: number;
-	};
-	options?: any;
-};
-export type WidgetProps = { id: string; widget: Widget };
 export const Widgets: {
 	[x: string]: { component: Component<WidgetProps>; size: { minWidth: number; minHeight: number } };
 } = {
 	Test: {
 		component: Test,
+		size: {
+			minWidth: 2,
+			minHeight: 2
+		}
+	},
+	Time: {
+		component: Time,
 		size: {
 			minWidth: 2,
 			minHeight: 2
